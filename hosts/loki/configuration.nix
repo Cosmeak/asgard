@@ -47,6 +47,10 @@
     variant = "";
   };
 
+  # Enable automatic login for the user.
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "cosmeak";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
