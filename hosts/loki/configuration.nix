@@ -1,45 +1,45 @@
 { inputs, outputs, pkgs, ... }:
 {
-    imports = [
-        ./hardware-configuration.nix
-        ./../../modules/nixos/sound.nix
-        ./../../modules/nixos/nvidia.nix
-        ./../../modules/nixos/budgie.nix
-        ./../../modules/nixos/steam.nix
-        ./../../modules/nixos/gc.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+    ./../../modules/nixos/sound.nix
+    ./../../modules/nixos/graphics/nvidia.nix
+    ./../../modules/nixos/desktops/budgie.nix
+    ./../../modules/nixos/steam.nix
+    ./../../modules/nixos/gc.nix
+  ];
 
-    # Bootloader.
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.efi.canTouchEfiVariables = true;
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "loki";
-    # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.hostName = "loki";
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-    # Enable networking
-    networking.networkmanager.enable = true;
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-    # Set your time zone.
-    time.timeZone = "Europe/Paris";
+  # Set your time zone.
+  time.timeZone = "Europe/Paris";
 
-    # Select internationalisation properties.
-    i18n.defaultLocale = "en_US.UTF-8";
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
 
-    i18n.extraLocaleSettings = {
-        LC_ADDRESS = "fr_FR.UTF-8";
-        LC_IDENTIFICATION = "fr_FR.UTF-8";
-        LC_MEASUREMENT = "fr_FR.UTF-8";
-        LC_MONETARY = "fr_FR.UTF-8";
-        LC_NAME = "fr_FR.UTF-8";
-        LC_NUMERIC = "fr_FR.UTF-8";
-        LC_PAPER = "fr_FR.UTF-8";
-        LC_TELEPHONE = "fr_FR.UTF-8";
-        LC_TIME = "fr_FR.UTF-8";
-    };
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "fr_FR.UTF-8";
+    LC_IDENTIFICATION = "fr_FR.UTF-8";
+    LC_MEASUREMENT = "fr_FR.UTF-8";
+    LC_MONETARY = "fr_FR.UTF-8";
+    LC_NAME = "fr_FR.UTF-8";
+    LC_NUMERIC = "fr_FR.UTF-8";
+    LC_PAPER = "fr_FR.UTF-8";
+    LC_TELEPHONE = "fr_FR.UTF-8";
+    LC_TIME = "fr_FR.UTF-8";
+  };
 
     # Configure keymap in X11
   services.xserver.xkb = {
@@ -47,17 +47,31 @@
     variant = "";
   };
 
+  # Enable automatic login for the user.
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "cosmeak";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-   # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.cosmeak = {
     isNormalUser = true;
     description = "cosmeak";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = [
-      # thunderbird
-      # vscode
+    packages = with pkgs; [
+      discord
+      thunderbird
+      spotify
+      brave
+      lutris
+      # zed-editor
+      php83
+      php83Packages.composer
+      nodejs_20
+      lazygit
+      modrinth-app
+      btop
     ];
   };
 
@@ -66,23 +80,23 @@
   nixpkgs.config.allowBroken = true;
 
   # Install packages
-  environment.systemPackages = [
-    pkgs.git
-    pkgs.vscode
-    pkgs.mangohud
-    pkgs.protonup
-    pkgs.discord
-    pkgs.modrinth-app
-    pkgs.kitty
-    pkgs.spotify
-    pkgs.brave
-    pkgs.lutris
-    # inputs.nixpkgs-unstable.zed-editor
+  environment.systemPackages = with pkgs; [
+    git
+    vscode
+    mangohud
+    protonup
+    kitty
+  ];
+
+  # Fonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Hack" ]; })
   ];
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # NixOS version
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
 }
