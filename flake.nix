@@ -2,8 +2,8 @@
     description = "Milkyway flakes configurations";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-        # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+        # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     };
 
     outputs = inputs@{ self, nixpkgs, ... }:
