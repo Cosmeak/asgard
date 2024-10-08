@@ -93,7 +93,7 @@
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     environment.systemPackages = with pkgs; [
-        # Dev environment most used
+        #  most used Dev environment
         php83
         php83Packages.composer
         nodejs_20
