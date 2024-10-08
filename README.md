@@ -1,19 +1,40 @@
-# Asgard
+<div align="center">
+  <h1> Asgard </h1>
+</div>
 
-> [!WARNING]
-> This configuration is only for my purpose, you can take inspiration and some code but don't install or use it as a base.🙂
+This configuration is under constant construction so some things may be remove or add accordings to my needs but i want to keep all even if it's not used anymore.
+
+> [!DANGER]
+> This configuration is make for my purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
+> Any damage caused by this configuration is not my responsibility. Use at your own risk.
+
+## ✨️ - Features
+
+- [x] NixOS
+- [x] Nix Darwin
+- [ ] Nix BSD
+- [ ] WSL
+- [ ] Homelab with MicroVM
+- [x] Multi flavor for DE / WM
+- [ ] Secrets management
+- [ ] Multiple nixpkgs channel
+- [ ] Dotfiles managing
+- [ ] Custom live ISO
+- [ ] Auto-updating flakes
+- [ ] Encrypted disks
+- [ ] Secure Boot
+
 
 ## 💻 - Hosts
 
-| Name     | OS                    | Usage       | Machine        |
-| -------- | --------------------- | ----------- | -------------- |
-| njord    | MacOS                 | Development | Macbook Pro M2 |
-| loki     | NixOS                 | Gaming      | Desktop        |
-| hvedrung | FreeBSD (with nixbsd) | Tests       | Desktop        |
+| Hostname | CPU           | GPU            | RAM  | OS                    | Usage       | Status   | 
+| -------- | ------------- | -------------- | ---- | --------------------- | ----------- | :------: |
+| njord    | Apple M2 Chip | Apple M2 Chip  | 32Go | MacOS                 | Development | 🟢️       |
+| loki     | i5 13600kf    | Nvidia 4070ti  | 32Go | NixOS                 | Gaming      | 🟢️       |
+| hvedrung | i5 13600kf    | Nvidia 4070ti  | 32Go | FreeBSD (with nixbsd) | Tests       | 🔴️       |
 
-| Machine | CPU        | GPU           | RAM  |
-| ------- | ---------- | ------------- | ---- |
-| Desktop | i5 13600kf | Nvidia 4070ti | 32Go |
+> [!NOTE]
+> hvedrung host is the same desktop as loki, just another SSD used or is used inside a VM.
 
 > [!NOTE]
 > The i5 is the worst CPU i've got, so much problem with stability and other things, some patch applied can be link for it stability.
