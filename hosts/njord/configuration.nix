@@ -78,7 +78,7 @@
             # Drag from anywhere a window to move it
             NSWindowShouldDragOnGesture = true;
             # Deativate sound bip when volume is changed
-            "com.apple.sound.beep.feedback" = false;
+            "com.apple.sound.beep.feedback" = 0;
             # Natural scrolling direction
             "com.apple.swipescrolldirection" = true;
     	};
