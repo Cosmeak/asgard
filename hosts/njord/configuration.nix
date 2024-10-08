@@ -67,7 +67,27 @@
             AppleInterfaceStyleSwitchesAutomatically = true;
       		# Disable saving new documents to icloud
        	    NSDocumentSaveNewDocumentsToCloud = false;
+            # Time before the key is repeated
+            InitialKeyRepeat = 1;
+            # Time between repeat key
+            KeyRepeat = 1;
+            # Window open animation
+            NSAutomaticWindowAnimationsEnabled = false;
+            # Icon size in finder
+            NSTableViewDefaultSizeMode = 1;
+            # Drag from anywhere a window to move it
+            NSWindowShouldDragOnGesture = true;
+            # Deativate sound bip when volume is changed
+            "com.apple.sound.beep.feedback" = false;
+            # Natural scrolling direction
+            "com.apple.swipescrolldirection" = true;
     	};
+
+        # Deactivate state manager
+        WindowManager.GloballyEnabled = false;
+
+        # Text show in the login window
+        loginwindow.LoginwindowText = "Maybe you cannot touch me";
     };
 
     # List packages installed in system profile. To search by name, run:
@@ -94,7 +114,7 @@
         raycast
     ];
 
-    # Homebrew - Using only for gui app because macos app do not existe un nixpkgs repository
+    # Homebrew - Using for gui app because majority macos apps does not exists in nixpkgs repository
     homebrew.enable = true;
     homebrew.onActivation = {
         autoUpdate = true;
