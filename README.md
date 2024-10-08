@@ -4,7 +4,7 @@
 
 This configuration is under constant construction so some things may be remove or add accordings to my needs but i want to keep all even if it's not used anymore.
 
-> [!DANGER]
+> [!CAUTION]
 > This configuration is make for my purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
 > Any damage caused by this configuration is not my responsibility. Use at your own risk.
 
