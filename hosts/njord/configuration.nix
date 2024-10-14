@@ -27,8 +27,10 @@
     };
     system.defaults = {
     	# Dock
+        # -- Relaunch dock when it not reload itself correctly
+        # $ killall Dock
         dock = {
-       	autohide = true;
+       	    autohide = true;
            	orientation = "bottom"; # Set dock to bottom
            	mru-spaces = false; # Auto arrange space based on the most recent use
            	launchanim = false; # Remove animation when opening an app
@@ -48,6 +50,11 @@
    	            "/Applications/Zed.app"
    	            "/Applications/Beekeeper Studio.app"
            	];
+            # Disable hot corners
+            wvous-bl-corner = 1;
+            wvous-br-corner = 1;
+            wvous-tl-corner = 1;
+            wvous-tr-corner = 1;
         };
 
      	# Finder

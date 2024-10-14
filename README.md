@@ -54,13 +54,6 @@ This repository follow the KISS principle at this moment, but feel free to propo
   - 👹️ : FreeBSD with NixBSD
 </details>
 
-<br>
-
-> [!NOTE]
-> hvedrung host is the same desktop as loki, just another SSD used or is used inside a VM.
-
-> [!NOTE]
-> The i5 is the worst CPU i've got, so much problem with stability and other things, some patch applied can be link for it stability.
 
 ## 📦 - Structure
 
