@@ -30,22 +30,28 @@ This repository follow the KISS principle at this moment, but feel free to propo
 
 ## 💻 - Hosts
 
-| Hostname   | CPU               | GPU            | RAM  | OS                    | Usage   | Status   | 
-| :--------: | :---------------: | :------------: | :--: | :-------------------: | :-----: | :------: |
-| `njord`    | Apple M2 Chip     | Apple M2 Chip  | 32Go | MacOS                 | ⌨️      | 🟢️       |
-| `loki`     | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | NixOS                 | 🎮️      | 🟢️       |
-| `hvedrung` | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | FreeBSD (with nixbsd) | 🧨️      | 🔴️       |
-| `beowulf`  |                   |                |      | NixOS                 | ☁️      | 🔴️       |
-| `nyx`      | AMD Ryzen 3 3300X | Nvidia 1060    | 16GO | NixOS                 | 🎮️ / ⌨️ | 🟢️       |
+| Hostname   | CPU               | GPU               | RAM   | OS   | Usage   | Status   | 
+| :--------: | :---------------: | :---------------: | :---: | :--: | :-----: | :------: |
+| `njord`    | Apple M2 Pro Chip | Apple M2 Pro Chip | 32Go  | 🍎️   | ⌨️      | 🟢️       |
+| `loki`     | Intel i5 13600kf  | Nvidia 4070ti     | 32Go  | ❄️   | 🎮️ / 🎭️ | 🟢️       |
+| `hvedrung` | ⤴️                | ⤴️                | ⤴️    | 👹️   | 🧨️ / 🎭️ | 🔴️       |
+| `beowulf`  |                   |                   |       | ❄️   | 💾️      | 🔴️       |
+| `nyx`      | AMD Ryzen 3 3300X | Nvidia 1060       | 16GO  | ❄️   | 🎮️ / ⌨️ | 🟢️       |
 
 
 <details>
   <summary>Legend</summary>
 
   - 🎮️ : Gaming
-  - ☁️ : Server
+  - 💾️ : Server
+  - ☁️ : Virtual Machime
   - ⌨️ : Development
   - 🧨️ : Testing purpose
+  - 🎭️ : Dual Boot
+
+  - ❄️ : NixOS
+  - 🍎️ : MacOS
+  - 👹️ : FreeBSD with NixBSD
 </details>
 
 <br>
@@ -61,8 +67,8 @@ This repository follow the KISS principle at this moment, but feel free to propo
 ```
 .
 ├── homes        # User home configuration 
-│  ├── user@common  # Shared dotfiles between user configuration
-│  └── user@host    # Personal folders for dotfiles
+│  ├── user@common   # Shared dotfiles between user configuration
+│  └── user@host     # Personal folders for dotfiles
 ├── hosts        # Host-specific configuration
 └── modules      # macOS and nix-darwin, NixOS, and shared configuration
     ├── shared       # Shared modules across all platforms
