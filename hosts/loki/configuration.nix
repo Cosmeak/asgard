@@ -86,6 +86,8 @@
     mangohud
     protonup
     kitty
+    obsidian
+    vesktop
   ];
 
   # Fonts

@@ -9,6 +9,8 @@
             url = "github:LnL7/nix-darwin";
             inputs.nixpkgs.follows= "nixpkgs";
         };
+
+        nix-gaming.url = "github:fufexan/nix-gaming";
     };
 
     outputs = inputs@{ self, nixpkgs, darwin, ... }:
@@ -31,6 +33,11 @@
             loki = nixpkgs.lib.nixosSystem {
                 specialArgs = { inherit inputs outputs; };
                 modules = [ ./hosts/loki/configuration.nix ];
+            };
+
+            nyx = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs outputs; };
+                modules = [ ./hosts/nyx/configuration.nix ];
             };
         };
 

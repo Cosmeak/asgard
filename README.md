@@ -27,11 +27,18 @@ This configuration is under constant construction so some things may be remove o
 
 ## 💻 - Hosts
 
-| Hostname | CPU           | GPU            | RAM  | OS                    | Usage       | Status   | 
-| -------- | ------------- | -------------- | ---- | --------------------- | ----------- | :------: |
-| njord    | Apple M2 Chip | Apple M2 Chip  | 32Go | MacOS                 | Development | 🟢️       |
-| loki     | i5 13600kf    | Nvidia 4070ti  | 32Go | NixOS                 | Gaming      | 🟢️       |
-| hvedrung | i5 13600kf    | Nvidia 4070ti  | 32Go | FreeBSD (with nixbsd) | Tests       | 🔴️       |
+| Hostname | CPU               | GPU            | RAM  | OS                    | Usage   | Status   | 
+| :------: | :---------------: | :------------: | :--: | :-------------------: | :-----: | :------: |
+| njord    | Apple M2 Chip     | Apple M2 Chip  | 32Go | MacOS                 | ⌨️      | 🟢️       |
+| loki     | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | NixOS                 | 🎮️      | 🟢️       |
+| hvedrung | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | FreeBSD (with nixbsd) | 🧨️      | 🔴️       |
+| beowulf  |                   |                |      | NixOS                 | ☁️      | 🔴️       |
+| nyx      | AMD Ryzen 3 3300X | Nvidia 1060    | 16GO | NixOS                 | 🎮️ / ⌨️ | 🟢️       |
+
+🎮️ : Gaming
+☁️ : Server
+⌨️ : Development
+🧨️ : Testing purpose
 
 > [!NOTE]
 > hvedrung host is the same desktop as loki, just another SSD used or is used inside a VM.
