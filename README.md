@@ -4,8 +4,11 @@
 
 This configuration is under constant construction so some things may be remove or add accordings to my needs but i want to keep all even if it's not used anymore.
 
+This repository follow the KISS principle at this moment, but feel free to propose improvement and to help me understand better how nix work.
+
 > [!CAUTION]
 > This configuration is make for my purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
+> 
 > Any damage caused by this configuration is not my responsibility. Use at your own risk.
 
 ## ✨️ - Features
@@ -50,12 +53,10 @@ This configuration is under constant construction so some things may be remove o
 
 ```
 .
-├── homes        # User home configuration (Not Home manager, just sim)
-│   └── cosmeak      # Personal folders for dotfiles
+├── homes        # User home configuration 
+│  ├── user@common  # Shared dotfiles between user configuration
+│  └── user@host    # Personal folders for dotfiles
 ├── hosts        # Host-specific configuration
-│   ├── njord        # MacOS development laptop
-│   ├── loki         # Nixos gaming desktop
-│   └── hvedrung     # FreeBSD (only for testing purpose of nixbsd)
 └── modules      # macOS and nix-darwin, NixOS, and shared configuration
     ├── shared       # Shared modules across all platforms
     ├── nixos        # Nixos modules
@@ -70,4 +71,5 @@ These are the things that help me the most to understand Nix ecosystem and help 
 - [elythh](https://github.com/elythh/flake)
 - [Flakes book](https://nixos-and-flakes.thiscute.world/)
 - [Nix Language](https://nix.dev/)
+- [Nix Tour](https://nixcloud.io/tour/?id=introduction/nix)
 - [chenglab](https://github.com/eh8/chenglab/blob/main/modules/macos/base.nix)
