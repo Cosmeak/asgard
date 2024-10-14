@@ -6,7 +6,7 @@ This configuration is under constant construction so some things may be remove o
 
 This repository follow the KISS principle at this moment, but feel free to propose improvement and to help me understand better how nix work.
 
-> [!CAUTION]
+> [!IMPORTANT]
 > This configuration is make for my purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
 > 
 > Any damage caused by this configuration is not my responsibility. Use at your own risk.
@@ -30,18 +30,25 @@ This repository follow the KISS principle at this moment, but feel free to propo
 
 ## 💻 - Hosts
 
-| Hostname | CPU               | GPU            | RAM  | OS                    | Usage   | Status   | 
-| :------: | :---------------: | :------------: | :--: | :-------------------: | :-----: | :------: |
-| njord    | Apple M2 Chip     | Apple M2 Chip  | 32Go | MacOS                 | ⌨️      | 🟢️       |
-| loki     | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | NixOS                 | 🎮️      | 🟢️       |
-| hvedrung | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | FreeBSD (with nixbsd) | 🧨️      | 🔴️       |
-| beowulf  |                   |                |      | NixOS                 | ☁️      | 🔴️       |
-| nyx      | AMD Ryzen 3 3300X | Nvidia 1060    | 16GO | NixOS                 | 🎮️ / ⌨️ | 🟢️       |
+| Hostname   | CPU               | GPU            | RAM  | OS                    | Usage   | Status   | 
+| :--------: | :---------------: | :------------: | :--: | :-------------------: | :-----: | :------: |
+| `njord`    | Apple M2 Chip     | Apple M2 Chip  | 32Go | MacOS                 | ⌨️      | 🟢️       |
+| `loki`     | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | NixOS                 | 🎮️      | 🟢️       |
+| `hvedrung` | Intel i5 13600kf  | Nvidia 4070ti  | 32Go | FreeBSD (with nixbsd) | 🧨️      | 🔴️       |
+| `beowulf`  |                   |                |      | NixOS                 | ☁️      | 🔴️       |
+| `nyx`      | AMD Ryzen 3 3300X | Nvidia 1060    | 16GO | NixOS                 | 🎮️ / ⌨️ | 🟢️       |
 
-🎮️ : Gaming
-☁️ : Server
-⌨️ : Development
-🧨️ : Testing purpose
+
+<details>
+  <summary>Legend</summary>
+
+  - 🎮️ : Gaming
+  - ☁️ : Server
+  - ⌨️ : Development
+  - 🧨️ : Testing purpose
+</details>
+
+<br>
 
 > [!NOTE]
 > hvedrung host is the same desktop as loki, just another SSD used or is used inside a VM.
