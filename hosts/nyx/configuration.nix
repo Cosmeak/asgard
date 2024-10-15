@@ -77,6 +77,8 @@
       btop
       inputs.nix-gaming.packages.${pkgs.system}.rocket-league
       vesktop
+      unzip
+      zip
     ];
   };
 
