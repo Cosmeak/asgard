@@ -57,8 +57,8 @@ This repository follow the KISS principle at this moment, but feel free to propo
 ```
 .
 ├── homes        # User home configuration
-│  ├── user@shared   # Shared dotfiles between user configuration
-│  └── user@host     # Personal folders for dotfiles
+│  ├── <user>@shared   # Shared dotfiles between user configuration
+│  └── <user>@<host>     # Personal folders for dotfiles
 ├── hosts        # Host-specific configuration
 └── modules      # macOS and nix-darwin, NixOS, and shared configuration
     ├── shared       # Shared modules across all platforms

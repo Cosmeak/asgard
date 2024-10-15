@@ -14,6 +14,9 @@
     # The platform the configuration will be used on.
     nixpkgs.hostPlatform = "aarch64-darwin";
 
+    # Enable flakes
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
     # Use nix as a daemon
     services.nix-daemon.enable = true;
 
