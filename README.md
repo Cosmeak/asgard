@@ -49,7 +49,7 @@ This repository follow the KISS principle at this moment, but feel free to propo
 
 - ❄️ : NixOS
 - 🍎️ : MacOS
-- 👹️ : FreeBSD with NixBSD
+- 👹️ : FreeBSD with [NixBSD](https://github.com/nixos-bsd/nixbsd)
 </details>
 
 ## 📦 - Structure
