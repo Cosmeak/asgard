@@ -8,7 +8,7 @@ This repository follow the KISS principle at this moment, but feel free to propo
 
 > [!IMPORTANT]
 > This configuration is make for my purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
-> 
+>
 > Any damage caused by this configuration is not my responsibility. Use at your own risk.
 
 ## ✨️ - Features
@@ -27,40 +27,37 @@ This repository follow the KISS principle at this moment, but feel free to propo
 - [ ] Encrypted disks
 - [ ] Secure Boot
 
-
 ## 💻 - Hosts
 
-| Hostname   | CPU               | GPU               | RAM   | OS   | Usage   | Status   | 
-| :--------: | :---------------: | :---------------: | :---: | :--: | :-----: | :------: |
-| `njord`    | Apple M2 Pro Chip | Apple M2 Pro Chip | 32Go  | 🍎️   | ⌨️      | 🟢️       |
-| `loki`     | Intel i5 13600kf  | Nvidia 4070ti     | 32Go  | ❄️   | 🎮️ / 🎭️ | 🟢️       |
-| `hvedrung` | ⤴️                | ⤴️                | ⤴️    | 👹️   | 🧨️ / 🎭️ | 🔴️       |
-| `beowulf`  |                   |                   |       | ❄️   | 💾️      | 🔴️       |
-| `nyx`      | AMD Ryzen 3 3300X | Nvidia 1060       | 16GO  | ❄️   | 🎮️ / ⌨️ | 🟢️       |
-
+|  Hostname  |        CPU        |        GPU        | RAM  | OS  |   Usage   | Status |
+| :--------: | :---------------: | :---------------: | :--: | :-: | :-------: | :----: |
+|  `njord`   | Apple M2 Pro Chip | Apple M2 Pro Chip | 32Go | 🍎️ |    ⌨️     |  🟢️   |
+|   `loki`   | Intel i5 13600kf  |   Nvidia 4070ti   | 32Go | ❄️  | 🎮️ / 🎭️ |  🟢️   |
+| `hvedrung` |        ⤴️         |        ⤴️         |  ⤴️  | 👹️ | 🧨️ / 🎭️ |  🔴️   |
+| `beowulf`  |                   |                   |      | ❄️  |    💾️    |  🔴️   |
+|   `nyx`    | AMD Ryzen 3 3300X |    Nvidia 1060    | 16GO | ❄️  | 🎮️ / ⌨️  |  🟢️   |
 
 <details>
   <summary>Legend</summary>
 
-  - 🎮️ : Gaming
-  - 💾️ : Server
-  - ☁️ : Virtual Machime
-  - ⌨️ : Development
-  - 🧨️ : Testing purpose
-  - 🎭️ : Dual Boot
+- 🎮️ : Gaming
+- 💾️ : Server
+- ☁️ : Virtual Machime
+- ⌨️ : Development
+- 🧨️ : Testing purpose
+- 🎭️ : Dual Boot
 
-  - ❄️ : NixOS
-  - 🍎️ : MacOS
-  - 👹️ : FreeBSD with NixBSD
+- ❄️ : NixOS
+- 🍎️ : MacOS
+- 👹️ : FreeBSD with NixBSD
 </details>
-
 
 ## 📦 - Structure
 
 ```
 .
-├── homes        # User home configuration 
-│  ├── user@common   # Shared dotfiles between user configuration
+├── homes        # User home configuration
+│  ├── user@shared   # Shared dotfiles between user configuration
 │  └── user@host     # Personal folders for dotfiles
 ├── hosts        # Host-specific configuration
 └── modules      # macOS and nix-darwin, NixOS, and shared configuration
