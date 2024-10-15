@@ -65,7 +65,7 @@
       spotify
       brave
       lutris
-      # zed-editor
+      zed-editor
       php83
       php83Packages.composer
       nodejs_20
