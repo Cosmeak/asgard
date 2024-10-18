@@ -73,6 +73,8 @@
       modrinth-app
       btop
       vesktop
+      zip
+      unzip
     ];
   };
 
