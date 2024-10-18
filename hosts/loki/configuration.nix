@@ -72,6 +72,7 @@
       lazygit
       modrinth-app
       btop
+      vesktop
     ];
   };
 
@@ -82,12 +83,10 @@
   # Install packages
   environment.systemPackages = with pkgs; [
     git
-    vscode
     mangohud
     protonup
     kitty
     obsidian
-    vesktop
   ];
 
   # Fonts
