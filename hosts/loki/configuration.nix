@@ -65,12 +65,12 @@
       spotify
       brave
       lutris
-      zed-editor
+      unstable.zed-editor
       php83
       php83Packages.composer
       nodejs_20
       lazygit
-      modrinth-app
+      unstable.modrinth-app
       btop
       vesktop
       zip
@@ -81,6 +81,7 @@
   # Setup nixpkgs rights
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
+  nixpkgs.overlays = [ outputs.overlays.unstable-packages ];
 
   # Install packages
   environment.systemPackages = with pkgs; [
