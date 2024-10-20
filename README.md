@@ -71,8 +71,13 @@ This repository follow the KISS principle at this moment, but feel free to propo
 
 These are the things that help me the most to understand Nix ecosystem and help me build my configuration from scratch.
 
-- [elythh](https://github.com/elythh/flake)
+📚️ - Learning
+
 - [Flakes book](https://nixos-and-flakes.thiscute.world/)
 - [Nix Language](https://nix.dev/)
 - [Nix Tour](https://nixcloud.io/tour/?id=introduction/nix)
+
+### ✨️ - Dotfiles
+
+- [elythh](https://github.com/elythh/flake)
 - [chenglab](https://github.com/eh8/chenglab/blob/main/modules/macos/base.nix)
