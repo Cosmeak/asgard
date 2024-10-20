@@ -20,7 +20,7 @@ This repository follow the KISS principle at this moment, but feel free to propo
 - [ ] Homelab with MicroVM
 - [x] Multi flavor for DE / WM
 - [ ] Secrets management
-- [ ] Multiple nixpkgs channel
+- [x] Default on stable channel and have unstable as an overlay (take from [here](https://github.com/AlexNabokikh/nix-config))
 - [ ] Dotfiles managing
 - [ ] Custom live ISO
 - [ ] Auto-updating flakes
