@@ -76,8 +76,14 @@ These are the things that help me the most to understand Nix ecosystem and help 
 - [Flakes book](https://nixos-and-flakes.thiscute.world/)
 - [Nix Language](https://nix.dev/)
 - [Nix Tour](https://nixcloud.io/tour/?id=introduction/nix)
+- [Simple Home Manager Explanation](https://github.com/Evertras/simple-homemanager)
 
 ### ✨️ - Dotfiles
 
+You can retrieve more useful dotfiles inside my [dotfile star list](https://github.com/stars/Cosmeak/lists/useful-dotfiles).
+
+The dotfiles listed below, are the one that really help me to build this are those from wich I took some code.
+
 - [elythh](https://github.com/elythh/flake)
-- [chenglab](https://github.com/eh8/chenglab/blob/main/modules/macos/base.nix)
+- [chenglab](https://github.com/eh8/chenglab)
+- [AlexNabokikh](https://github.com/AlexNabokikh/nix-config)
