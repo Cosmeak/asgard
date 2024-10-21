@@ -10,6 +10,11 @@
             inputs.nixpkgs.follows= "nixpkgs";
         };
 
+        nixos-wsl = {
+            url = "github:nix-community/NixOS-WSL";
+            inputs.nixpkgs.follows= "nixpkgs";
+        };
+
         nix-gaming.url = "github:fufexan/nix-gaming";
 
         home-manager = {
@@ -18,7 +23,7 @@
         };
     };
 
-    outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, home-manager, ... }:
+    outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, nixos-wsl, home-manager, ... }:
     let
         inherit (self) outputs;
         # Currently supported systems
@@ -50,6 +55,15 @@
                             cosmeak = import ./homes/cosmeak-loki/home.nix;
                         };
                     }
+                ];
+            };
+
+            vali = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs outputs; };
+                system = "x86_64-linux";
+                modules = [
+                    nixos-wsl.nixosModules.wsl
+                    ./hosts/vali/configuration.nix
                 ];
             };
 
