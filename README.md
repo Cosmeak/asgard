@@ -29,12 +29,13 @@ This repository follow the KISS principle at this moment, but feel free to propo
 ## 💻 - Hosts
 
 |  Hostname  |            Motherboard            |          CPU         |        GPU        |  RAM | OS  | Usage    | Status |
-|:----------:|:---------------------------------:|:--------------------:|:-----------------:|:----:|:---:|:------- :|:------:|
-|   `njord`  | -                                 | Apple M2 Pro Chip    | Apple M2 Pro Chip | 32Go | 🍎️  | ⌨        | 🟢️     |
-|   `loki`   | ASUS ROG STRIX B760-I GAMING WIFI | Intel i5 13600kf     | Nvidia 4070ti     | 32Go | ❄️  | 🎮️ / 🎭️ | 🟢️     |
+|:----------:|:---------------------------------:|:--------------------:|:-----------------:|:----:|:---:|:-------:|:------:|
+| `njord`    | -                                 | Apple M2 Pro Chip    | Apple M2 Pro Chip | 32Go | 🍎️  | ⌨        | 🟢️     |
+| `loki`     | ASUS ROG STRIX B760-I GAMING WIFI | Intel i5 13600kf     | Nvidia 4070ti     | 32Go | ❄️  | 🎮️ / 🎭️ | 🟢️     |
 | `hvedrung` | ⤴️                                | ⤴️                   | ⤴️               | ⤴️   | 👹️  | 🧨️ / 🎭️ | 🔴️     |
-|    `nyx`   | Aorus B450 Elite                  | AMD Ryzen 3 3300X    | Nvidia 1060       | 16GO | ❄️  | 🎮️ / ⌨️  | 🟢️     |
-|  `beowulf` | HP ProDesk 400 G1 DM              | Intel Pentium G3250T | -                 | 8Go  | ❄️  | 💾️      | 🟠     |
+| `nyx`      | Aorus B450 Elite                  | AMD Ryzen 3 3300X    | Nvidia 1060       | 16GO | ❄️  | 🎮️ / ⌨️  | 🟢️     |
+| `beowulf`  | HP ProDesk 400 G1 DM              | Intel Pentium G3250T | -                 | 8Go  | ❄️  | 💾️      | 🟠     |
+| `vali`     | WSL                               | Intel i5-1135G7      | -                 | 16Go | ❄️  | ⌨️       | 🟠     |
 
 <details>
   <summary>Legend</summary>
