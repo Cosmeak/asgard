@@ -75,10 +75,13 @@
       brave
       lutris
       btop
-      inputs.nix-gaming.packages.${pkgs.system}.rocket-league
+      heroic
       vesktop
       unzip
       zip
+      lazygit
+      unstable.unityhub
+      blender
     ];
   };
 
@@ -91,11 +94,12 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [ outputs.overlays.unstable-packages ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    git  
+    git
     mangohud
     protonup
     wine

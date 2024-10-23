@@ -7,9 +7,9 @@ This configuration is under constant construction so some things may be remove o
 This repository follow the KISS principle at this moment, but feel free to propose improvement and to help me understand better how nix work.
 
 > [!IMPORTANT]
-> This configuration is make for my purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
+> This configuration is make for our purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
 >
-> Any damage caused by this configuration is not my responsibility. Use at your own risk.
+> Any damage caused by this configuration is not our responsibility. Use it at your own risks.
 
 ## ✨️ - Features
 
@@ -18,10 +18,9 @@ This repository follow the KISS principle at this moment, but feel free to propo
 - [ ] Nix BSD
 - [ ] WSL
 - [ ] Homelab with MicroVM
-- [x] Multi flavor for DE / WM
 - [ ] Secrets management
 - [x] Default on stable channel and have unstable as an overlay (take from [here](https://github.com/AlexNabokikh/nix-config))
-- [ ] Dotfiles managing
+- [ ] Dotfiles management
 - [ ] Custom live ISO
 - [ ] Auto-updating flakes
 - [ ] Encrypted disks
@@ -58,20 +57,22 @@ This repository follow the KISS principle at this moment, but feel free to propo
 .
 ├── homes        # User home configuration
 │  ├── <user>@shared   # Shared dotfiles between user configuration
-│  └── <user>@<host>     # Personal folders for dotfiles
+│  └── <user>@<host>   # Personal folders for dotfiles
 ├── hosts        # Host-specific configuration
-└── modules      # macOS and nix-darwin, NixOS, and shared configuration
-    ├── shared       # Shared modules across all platforms
-    ├── nixos        # Nixos modules
-    ├── darwin       # MacOS modules
-    └── bsd          # FreeBSD modules
+├── lib          # Custom functions needed to help configure
+├── modules      # macOS and nix-darwin, NixOS, and shared configuration
+│  ├── shared       # Shared modules across all platforms
+│  ├── nixos        # Nixos modules
+│  ├── darwin       # MacOS modules
+│  └── bsd          # FreeBSD modules
+└── overlays     # Helping overlays for building wanted packages
 ```
 
 ## 💡 - Acknowledgments
 
 These are the things that help me the most to understand Nix ecosystem and help me build my configuration from scratch.
 
-📚️ - Learning
+### 📚️ - Learning
 
 - [Flakes book](https://nixos-and-flakes.thiscute.world/)
 - [Nix Language](https://nix.dev/)
