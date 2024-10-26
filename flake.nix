@@ -1,5 +1,5 @@
 {
-    description = "Milkyway flakes configurations";
+    description = "Domain of the Aesir";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
