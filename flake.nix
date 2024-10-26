@@ -19,10 +19,6 @@
             url = "github:nix-community/home-manager/release-24.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-        microvm = {
-            url = "github:astro/microvm.nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
     };
 
     outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, nixos-wsl, home-manager, microvm, ... }:
@@ -72,15 +68,6 @@
             nyx = nixpkgs.lib.nixosSystem {
                 specialArgs = { inherit inputs outputs; };
                 modules = [ ./hosts/nyx/configuration.nix ];
-            };
-
-            beowulf = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                specialArgs = { inherit inputs outputs; };
-                modules = [
-                    microvm.nixosModules.host
-                    ./hosts/beowulf/configuration.nix
-                ];
             };
         };
 
