@@ -75,6 +75,8 @@
       vesktop
       zip
       unzip
+      termius
+      just
     ];
   };
 
