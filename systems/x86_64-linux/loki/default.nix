@@ -13,6 +13,8 @@ with lib.${namespace};
             locale.enable = true;
 
             xkb.enable = true;
+
+            shell.enable = true;
         };
 
         hardware = {

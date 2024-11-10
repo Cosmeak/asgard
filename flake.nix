@@ -35,11 +35,11 @@
         channels-config.allowUnfree = true;
 
         systems.modules.nixos = with inputs; [
-            home-manager.nixosModules.home-manager
+            # home-manager.nixosModules.home-manager
         ];
 
         systems.modules.darwin = with inputs; [
-            home-manager.darwinModules.home-manager
+            # home-manager.darwinModules.home-manager
         ];
 
         systems.hosts.vali.modules = with inputs; [
