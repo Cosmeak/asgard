@@ -2,10 +2,10 @@
 with lib;
 with lib.${namespace};
 let
-    cfg = config.${namespace}.system.bootloader;
+    cfg = config.${namespace}.system.boot.efi;
 in
 {
-    options.${namespace}.system.bootloader = with types; {
+    options.${namespace}.system.boot.efi = with types; {
         enable = mkBoolOpt false "Whether or not to enable booting.";
     };
 
