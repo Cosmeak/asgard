@@ -1,9 +1,7 @@
 {
-    description = "Domain of the Aesir";
-
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+        unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
         darwin = {
             url = "github:LnL7/nix-darwin";
@@ -19,63 +17,33 @@
             url = "github:nix-community/home-manager/release-24.05";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-    };
 
-    outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, darwin, nixos-wsl, home-manager, microvm, ... }:
-    let
-        inherit (self) outputs;
-        # Currently supported systems
-        systems = [
-            "x86_64-linux"
-            "aarch64-darwin"
+        # The name "snowfall-lib" is required due to how Snowfall Lib processes your
+        # flake's inputs.
+        snowfall-lib = {
+            url = "github:snowfallorg/lib";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
+    };
+    outputs = inputs : inputs.snowfall-lib.mkFlake  {
+        inherit inputs;
+        src = ./.;
+        snowfall.namespace = "asgard";
+        snowfall.meta.name = "asgard";
+        snowfall.meta.description = "Domain of the Aesir";
+
+        channels-config.allowUnfree = true;
+
+        systems.modules.nixos = with inputs; [
+            home-manager.nixosModules.home-manager
         ];
 
-        # Function to generate an attribute for all systems
-        forAllSystems = nixpkgs.lib.genAttrs systems;
-    in
-    {
-        # Enable formatter
-        formatter = forAllSystems (system: nixpkgs.legagyPackages.${system}.alejandra);
+        systems.modules.darwin = with inputs; [
+            home-manager.darwinModules.home-manager
+        ];
 
-        # Applied overlays
-        overlays = import ./overlays { inherit inputs; };
-
-        nixosConfigurations = {
-            loki = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs outputs; };
-                modules = [
-                    ./hosts/loki/configuration.nix
-                    home-manager.nixosModules.home-manager
-                    {
-                        home-manager.useGlobalPkgs = true;
-                        home-manager.useUserPackages = true;
-                        home-manager.users = {
-                            cosmeak = import ./homes/cosmeak-loki/home.nix;
-                        };
-                    }
-                ];
-            };
-
-            vali = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs outputs; };
-                system = "x86_64-linux";
-                modules = [
-                    nixos-wsl.nixosModules.wsl
-                    ./hosts/vali/configuration.nix
-                ];
-            };
-
-            nyx = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs outputs; };
-                modules = [ ./hosts/nyx/configuration.nix ];
-            };
-        };
-
-        darwinConfigurations = {
-            njord = darwin.lib.darwinSystem {
-                specialArgs = { inherit inputs outputs; };
-                modules = [ ./hosts/njord/configuration.nix ];
-            };
-        };
+        systems.hosts.vali.modules = with inputs; [
+            nixos-wsl.nixosModules.wsl
+        ];
     };
 }
