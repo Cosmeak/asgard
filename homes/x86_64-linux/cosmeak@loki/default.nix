@@ -6,6 +6,7 @@ with lib.${namespace};
         brave
         btop
         # discord
+        discord-krisp
         deno
         github-desktop
         just

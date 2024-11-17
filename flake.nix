@@ -47,6 +47,10 @@
             home-manager.darwinModules.home-manager
         ];
 
+        homes.modules = with inputs; [
+            chaotic.homeManagerModules.default
+        ];
+
         systems.hosts.vali.modules = with inputs; [
             nixos-wsl.nixosModules.wsl
         ];
