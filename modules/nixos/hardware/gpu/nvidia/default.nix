@@ -11,15 +11,15 @@ in
 
     config = mkIf cfg.enable {
         # Enable OpenGL
-        hardware.opengl = {
+        hardware.graphics = {
             enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
+            # driSupport = true;
+            enable32Bit = true;
         };
 
         services.xserver.videoDrivers = [ "nvidia" ];
         hardware.nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.production; # 550 Driver
+            package = config.boot.kernelPackages.nvidiaPackages.stable; # 550 Driver
             modesetting.enable = true;
             powerManagement.enable = false;
             powerManagement.finegrained = false;

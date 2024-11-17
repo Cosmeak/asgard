@@ -8,12 +8,9 @@ with lib.${namespace};
         system = {
             boot.efi.enable = true;
             fonts.enable = true;
-
             time.enable = true;
             locale.enable = true;
-
             xkb.enable = true;
-
             shell.enable = true;
         };
 
@@ -29,6 +26,9 @@ with lib.${namespace};
             steam.enable = true;
         };
     };
+
+    boot.kernelPackages = pkgs.linuxPackages_cachyos;
+    inputs.chaotic.scx.enable = true; # by default uses scx_rustland scheduler
 
     # Enable automatic login for the user.
     services.displayManager.autoLogin.enable = true;

@@ -1,7 +1,6 @@
 {
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-        unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
         darwin = {
             url = "github:LnL7/nix-darwin";
@@ -14,7 +13,7 @@
         };
 
         home-manager = {
-            url = "github:nix-community/home-manager/release-24.05";
+            url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -24,6 +23,10 @@
             url = "github:snowfallorg/lib";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # Additionnal pkgs
+        zen-browser.url = "github:0xc000022070/zen-browser-flake";
+        chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     };
     outputs = inputs : inputs.snowfall-lib.mkFlake  {
         inherit inputs;
@@ -33,13 +36,15 @@
         snowfall.meta.description = "Domain of the Aesir";
 
         channels-config.allowUnfree = true;
+        channels-config.allowBroken = true;
 
         systems.modules.nixos = with inputs; [
-            # home-manager.nixosModules.home-manager
+            home-manager.nixosModules.home-manager
+            inputs.chaotic.nixosModules.default
         ];
 
         systems.modules.darwin = with inputs; [
-            # home-manager.darwinModules.home-manager
+            home-manager.darwinModules.home-manager
         ];
 
         systems.hosts.vali.modules = with inputs; [

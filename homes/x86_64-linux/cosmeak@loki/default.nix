@@ -2,7 +2,7 @@
 with lib;
 with lib.${namespace};
 {
-    home.packages = with pkgs; [
+    home.packages = with pkgs; with inputs; [
         brave
         btop
         # discord
@@ -16,6 +16,7 @@ with lib.${namespace};
         obs-studio
         php83
         php83Packages.composer
+        prismlauncher
         spotify
         termius
         thunderbird
@@ -23,6 +24,7 @@ with lib.${namespace};
         vesktop
         vscode
         zed-editor
+        zen-browser.packages.${system}.specific
         zip
     ];
 
