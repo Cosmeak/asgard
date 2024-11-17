@@ -28,7 +28,7 @@ with lib.${namespace};
     };
 
     boot.kernelPackages = pkgs.linuxPackages_cachyos;
-    inputs.chaotic.scx.enable = true; # by default uses scx_rustland scheduler
+    chaotic.scx.enable = true; # by default uses scx_rustland scheduler
 
     # Enable automatic login for the user.
     services.displayManager.autoLogin.enable = true;
