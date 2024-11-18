@@ -1,24 +1,8 @@
-{ self, inputs, outputs, pkgs, ... }:
+{ lib, pkgs, inputs, namespace, system, target, format, virtual, systems, config, ... }:
+with lib;
+with lib.${namespace};
 {
-    # imports = [
-    #     ./../../modules/darwin/gc.nix
-    # ];
-
-    # Nixpkgs config
-    nixpkgs.config = {
-        allowUnfree = true;
-        allowUnsecure = false;
-        allowBroken = true;
-        allowUnsupportedSystem = true;
-    };
-    # The platform the configuration will be used on.
-    nixpkgs.hostPlatform = "aarch64-darwin";
-
-    # Enable flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-    # Use nix as a daemon
-    services.nix-daemon.enable = true;
+    asgard.desktop.aerospace.enable = true;
 
     # Enable sudo via TouchID
     security.pam.enableSudoTouchIdAuth = true;
@@ -107,6 +91,7 @@
         php83
         php83Packages.composer
         nodejs_20
+        python310
 
         # CLI
         neovim
@@ -165,7 +150,6 @@
         "balenaetcher"
 
         # Utilities
-        "amethyst"
         # "sketchybar"
         "stats"
 
@@ -192,8 +176,17 @@
         '';
     };
 
+    # The platform the configuration will be used on.
+    nixpkgs.hostPlatform = "aarch64-darwin";
+
+    # Enable flakes
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # Use nix as a daemon
+    services.nix-daemon.enable = true;
+
     # Set Git commit hash for darwin-version.
-    system.configurationRevision = outputs.rev or outputs.dirtyRev or null;
+    # system.configurationRevision = self.rev or self.dirtyRev or null;
 
     # Used for backwards compatibility, please read the changelog before changing.
     # $ darwin-rebuild changelog

@@ -48,7 +48,7 @@
         ];
 
         homes.modules = with inputs; [
-            chaotic.homeManagerModules.default
+            # inputs.chaotic.homeManagerModules.default
         ];
 
         systems.hosts.vali.modules = with inputs; [
