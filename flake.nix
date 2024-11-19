@@ -26,7 +26,7 @@
 
         # Additionnal pkgs
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
-        chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+        # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     };
     outputs = inputs : inputs.snowfall-lib.mkFlake  {
         inherit inputs;
@@ -40,7 +40,6 @@
 
         systems.modules.nixos = with inputs; [
             home-manager.nixosModules.home-manager
-            inputs.chaotic.nixosModules.default
         ];
 
         systems.modules.darwin = with inputs; [

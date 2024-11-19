@@ -6,7 +6,6 @@ with lib.${namespace};
         brave
         btop
         # discord
-        discord-krisp
         deno
         github-desktop
         just
@@ -15,6 +14,7 @@ with lib.${namespace};
         modrinth-app
         nodejs_20
         obs-studio
+        obsidian
         php83
         php83Packages.composer
         prismlauncher

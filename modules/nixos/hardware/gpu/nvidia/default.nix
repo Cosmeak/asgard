@@ -13,13 +13,12 @@ in
         # Enable OpenGL
         hardware.graphics = {
             enable = true;
-            # driSupport = true;
             enable32Bit = true;
         };
 
         services.xserver.videoDrivers = [ "nvidia" ];
         hardware.nvidia = {
-            package = config.boot.kernelPackages.nvidiaPackages.stable; # 550 Driver
+            package = config.boot.kernelPackages.nvidiaPackages.production;
             modesetting.enable = true;
             powerManagement.enable = false;
             powerManagement.finegrained = false;
