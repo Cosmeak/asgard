@@ -2,7 +2,7 @@
 with lib;
 with lib.${namespace};
 {
-    asgard.desktop.aerospace.enable = true;
+    asgard.desktop.amethyst.enable = true;
 
     # Enable sudo via TouchID
     security.pam.enableSudoTouchIdAuth = true;
@@ -92,6 +92,7 @@ with lib.${namespace};
         php83Packages.composer
         nodejs_20
         python310
+        vscodium      
 
         # CLI
         neovim
