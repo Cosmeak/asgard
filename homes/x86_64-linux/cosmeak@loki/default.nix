@@ -18,12 +18,13 @@ with lib.${namespace};
         php83
         php83Packages.composer
         prismlauncher
+	python310
         spotify
         termius
         thunderbird
         unzip
         vesktop
-        vscode
+        vscodium
         zed-editor
         zen-browser.packages.${system}.specific
         zip
