@@ -27,6 +27,7 @@ with lib.${namespace};
         };
     };
 
+    boot.kernelPackages = pkgs.linuxPackages_latest;
     # boot.kernelPackages = pkgs.linuxPackages_cachyos;
     # chaotic.scx.enable = true; # by default uses scx_rustland scheduler
     # chaotic.scx.scheduler = "scx_rusty";
@@ -41,6 +42,7 @@ with lib.${namespace};
         mangohud
         protonup
         kitty
+        modrinth-app
     ];
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
