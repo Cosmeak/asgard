@@ -8,7 +8,7 @@
             inputs.nixpkgs.follows= "nixpkgs";
         };
 
-        nixos-wsl = {
+        wsl = {
             url = "github:nix-community/NixOS-WSL";
             inputs.nixpkgs.follows= "nixpkgs";
         };
@@ -18,41 +18,95 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # The name "snowfall-lib" is required due to how Snowfall Lib processes your
-        # flake's inputs.
-        snowfall-lib = {
-            url = "github:snowfallorg/lib";
-            inputs.nixpkgs.follows = "nixpkgs";
+        microvm = {
+            url = "github:astro/microvm.nix";
+            inputs.nixpkgs.url = "nixpkgs";
         };
 
-        # Additionnal pkgs
-        zen-browser.url = "github:0xc000022070/zen-browser-flake";
-        # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+        hardware.url = "github:NixOS/nixos-hardware/master";
     };
-    outputs = inputs : inputs.snowfall-lib.mkFlake  {
-        inherit inputs;
-        src = ./.;
-        snowfall.namespace = "asgard";
-        snowfall.meta.name = "asgard";
-        snowfall.meta.description = "Domain of the Aesir";
+    
+    outputs = { self, nixpkgs, darwin, wsl, home-manager, microvm, hardware, ... }@inputs:   
+    {
+        overlays = import ./overlays { inherit inputs; };
 
-        channels-config.allowUnfree = true;
-        channels-config.allowBroken = true;
+        nixosConfigurations = {
+            loki = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs outputs; }; 
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    ./systems/x86_64-linux/loki
 
-        systems.modules.nixos = with inputs; [
-            home-manager.nixosModules.home-manager
-        ];
+                    # This below is for testing purpose before putting up my homelab
+                    microvm.nixosModules.host
+                    {
+                        microvm.autostart = [
+                            "forjego"
+                        ];
 
-        systems.modules.darwin = with inputs; [
-            home-manager.darwinModules.home-manager
-        ];
+                        microvm.vms = {
+                            forgejo = {
+                                pkgs = import nixpkgs { system = "x86_64-linux"; };
 
-        homes.modules = with inputs; [
-            # inputs.chaotic.homeManagerModules.default
-        ];
+                                config = {
+                                    microvm.share = [
+                                        {
+                                            source = "/nix/store";
+                                            mountPoint = "/nix/.ro-store";
+                                            tag = "ro-store";
+                                            proto = "virtiofs";
+                                        }
+                                    ];
 
-        systems.hosts.vali.modules = with inputs; [
-            nixos-wsl.nixosModules.wsl
-        ];
+                                    services.forgejo = {
+                                        package = pkgs.forgejo;
+                                        enable = true;
+                                        lfs.enable = true;
+                                        settings.service.DISABLE_REGISTRATION = true;
+                                    };
+                                };
+                            };
+                        };
+                    }
+                ];
+            };
+
+            vali = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit inputs outputs; };
+                 modules = [
+                    nixos-wsl.nixosModules.wsl
+                    home-manager.nixosModules.home-manager
+                    ./systems/x86_64-linux/vali
+                ];
+            };
+
+            nyx = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs outputs; };
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    ./systems/x86_64-linux/nyx
+                ];
+            };
+
+            # Raspberry Pi 3b+
+            narfi = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs outputs; };
+                modules = [
+                    microvm.nixosModules.host
+                    ./systems/aarch64-linux/nyx
+                ];
+            };
+        };
+
+        darwinConfigurations = {
+            njord = darwin.lib.darwinSystem {
+                specialArgs = { inherit inputs outputs; };
+                modules = [ 
+                    home-manager.darwinModules.home-manager
+                    ./systems/aarch64-darwin/njord
+                ];
+            };
+        };
     };
 }

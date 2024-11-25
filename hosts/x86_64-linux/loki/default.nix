@@ -1,8 +1,39 @@
 { lib, pkgs, inputs, namespace, system, target, format, virtual, systems, config, ... }:
 with lib;
 with lib.${namespace};
+with inputs;
 {
-    imports = [ ./hardware.nix ];
+    imports = [ ./hardware.nix microvm.nixosModules.host ];
+
+    microvm = {
+        autostart = [
+            "forjego"
+        ];
+
+        vms = {
+            forgejo = {
+                pkgs = import nixpkgs { system = "x86_64-linux"; };
+
+                config = {
+                    microvm.share = [
+                        {
+                            source = "/nix/store";
+                            mountPoint = "/nix/.ro-store";
+                            tag = "ro-store";
+                            proto = "virtiofs";
+                        }
+                    ];
+
+                    services.forgejo = {
+                        package = pkgs.forgejo;
+                        enable = true;
+                        lfs.enable = true;
+                        settings.service.DISABLE_REGISTRATION = true;
+                    };
+                };
+            };
+        };
+    };
 
     asgard = {
         system = {
