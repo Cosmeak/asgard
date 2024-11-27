@@ -2,34 +2,26 @@
   homebrew.casks = [
     # Dev
     "zed"
-    "vscodium"
-    "beekeeper-studio"
-    "insomnia"
-    "orbstack"
+    "vscodium" # used for jupyter notebook because not available in zed at this time
+    "beekeeper-studio" # find a better alternative
+    "insomnia" 
+    "orbstack" # replace with simple docker desktop
     "figma"
-    "dbngin"
-    "github"
-    "mongodb-compass"
-    "cyberduck"
+    "dbngin" # will be removed when all my project will used flakes and docker for databases
 
     # Apps
     "spotify"
-    "discord"
-    "thunderbird"
-    "obs"
+    "discord" 
+    "thunderbird" # install via nix if possible
     "obsidian"
-    "modrinth"
-    "zen-browser"
     "brave-browser"
-    "balenaetcher"
-    # "amethyst" # Window manager
 
-    # Utilities
-    # "sketchybar"
-    "stats"
+    # Mics
+    "amethyst" # Window manager
+    "stats" # System monitoring displayed in macos top bar - will be replaced by custom script with sketchybar
 
     # Fonts
     "sf-symbols"
-    "font-hack-nerd-font"
+    "font-hack-nerd-font" # move this to nix installation
   ];
 }

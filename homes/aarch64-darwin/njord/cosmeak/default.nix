@@ -26,6 +26,10 @@
         # Utilities
         alt-tab-macos
         raycast
+
+        # Window Manager
+        # Actually disabled because issue with french keyboard bindings
+        # aerospace 
     ];
 
     programs.kitty = {
@@ -55,7 +59,7 @@
         enableZshIntegration = true;
     };
 
-    home.file.".config/aerospace/aerospace.toml".source = ./i3-like.toml;
+    # home.file.".config/aerospace/aerospace.toml".source = ./aerospace/i3-like.toml;
 
     # You do not need to change this if you're reading this in the future.
     # Don't ever change this after the first build.  Don't ask questions.

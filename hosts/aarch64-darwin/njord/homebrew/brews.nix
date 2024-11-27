@@ -1,6 +1,5 @@
 {
   homebrew.brews = [
     "cocoapods"
-    "yarn"
   ];
 }

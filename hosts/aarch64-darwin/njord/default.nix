@@ -14,11 +14,6 @@
     # Enable sudo via TouchID
     security.pam.enableSudoTouchIdAuth = true;
 
-    # Window Manager
-    services.aerospace = {
-        enable = true;
-    };
-
     # Use jankyboarders to see which window is in focus
     services.jankyborders = {
         enable = true;
@@ -34,8 +29,6 @@
         # Add packages here
     ];
 
-    nixpkgs.config.allowUnfree = true;
-
     # Garbage collector
     nix.gc = {
         automatic = true;
@@ -46,6 +39,9 @@
 
     # The platform the configuration will be used on.
     nixpkgs.hostPlatform = "aarch64-darwin";
+
+    # Allow unfree packages
+    nixpkgs.config.allowUnfree = true;
 
     # Enable flakes
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
