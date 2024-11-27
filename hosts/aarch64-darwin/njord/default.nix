@@ -1,57 +1,48 @@
-{ self, inputs, outputs, pkgs, ... }:
+{ self, inputs, pkgs, ... }:
 {
     imports = [
         ./homebrew
         ./system
     ];
 
+    # Home Manager
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.users.cosmeak = import ./../../../homes/aarch64-darwin/njord/cosmeak;
+    users.users.cosmeak.home = "/Users/cosmeak";
+
     # Enable sudo via TouchID
     security.pam.enableSudoTouchIdAuth = true;
 
-    # move this shit inside home 
+    # Window Manager
+    services.aerospace = {
+        enable = true;
+    };
+
+    # Use jankyboarders to see which window is in focus
+    services.jankyborders = {
+        enable = true;
+    };
+
+    # Use sketcybar to replace default macos bar and have something customizable
+    services.sketchybar = {
+        enable = true;
+    };
+
+    # System wide packages
     environment.systemPackages = with pkgs; [
-        #  most used Dev environment
-        php83
-        php83Packages.composer
-        nodejs_20
-        python310
-        vscodium      
-
-        # CLI
-        neovim
-        starship
-        zoxide
-        tree
-        btop
-        lazygit
-        ngrok
-        fastfetch
-
-        # Utilities
-        kitty
-        alt-tab-macos
-        raycast
+        # Add packages here
     ];
 
-    programs.zsh = {
-        enable = true;
-        enableBashCompletion = true;
-        enableCompletion = true;
-        enableSyntaxHighlighting = true;
-        loginShellInit = ''
-            eval "$(zoxide init zsh)"
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-            alias rebuild="darwin-rebuild switch --flake ~/.dotfiles"
-        '';
-    };
+    nixpkgs.config.allowUnfree = true;
 
     # Garbage collector
     nix.gc = {
         automatic = true;
-        interval = [{ Weekly = 7; }];
+        interval = [{ Weekday = 7; }];
         options = "--delete-older-than 7d";
     };
-    nix.settings.auto-optimise-store = true;
+    nix.optimise.automatic = true;
 
     # The platform the configuration will be used on.
     nixpkgs.hostPlatform = "aarch64-darwin";

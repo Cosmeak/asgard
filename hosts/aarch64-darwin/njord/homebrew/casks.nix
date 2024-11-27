@@ -2,6 +2,7 @@
   homebrew.casks = [
     # Dev
     "zed"
+    "vscodium"
     "beekeeper-studio"
     "insomnia"
     "orbstack"
@@ -21,7 +22,7 @@
     "zen-browser"
     "brave-browser"
     "balenaetcher"
-    "amethyst"
+    # "amethyst" # Window manager
 
     # Utilities
     # "sketchybar"

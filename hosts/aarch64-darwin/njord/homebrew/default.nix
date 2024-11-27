@@ -4,7 +4,7 @@
   imports = [
     ./brews.nix
     ./casks.nix
-    ./masaps.nix
+    ./masapps.nix
     ./taps.nix
   ];
 

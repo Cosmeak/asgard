@@ -1,5 +1,5 @@
 {
-  system.defautls.screencapture.location = "~/Pictures/screenshots";
+  system.defaults.screencapture.location = "~/Pictures/screenshots";
   system.defaults.finder = {
     AppleShowAllExtensions = true; # Show file extension
     AppleShowAllFiles = true; # Show hidden files

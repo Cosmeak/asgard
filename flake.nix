@@ -28,83 +28,84 @@
     
     outputs = { self, nixpkgs, darwin, wsl, home-manager, microvm, hardware, ... }@inputs:   
     {
-        overlays = import ./overlays { inherit inputs; };
+        # overlays = import ./overlays { inherit inputs; };
 
         nixosConfigurations = {
             loki = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs outputs; }; 
+                specialArgs = { inherit inputs; }; 
                 modules = [
                     home-manager.nixosModules.home-manager
-                    ./systems/x86_64-linux/loki
+                    ./hosts/x86_64-linux/loki
 
                     # This below is for testing purpose before putting up my homelab
-                    microvm.nixosModules.host
-                    {
-                        microvm.autostart = [
-                            "forjego"
-                        ];
+                    # microvm.nixosModules.host
+                    # {
+                    #     microvm.autostart = [
+                    #         "forjego"
+                    #     ];
 
-                        microvm.vms = {
-                            forgejo = {
-                                pkgs = import nixpkgs { system = "x86_64-linux"; };
+                    #     microvm.vms = {
+                    #         forgejo = {
+                    #             pkgs = import nixpkgs { system = "x86_64-linux"; };
 
-                                config = {
-                                    microvm.share = [
-                                        {
-                                            source = "/nix/store";
-                                            mountPoint = "/nix/.ro-store";
-                                            tag = "ro-store";
-                                            proto = "virtiofs";
-                                        }
-                                    ];
+                    #             config = {
+                    #                 microvm.share = [
+                    #                     {
+                    #                         source = "/nix/store";
+                    #                         mountPoint = "/nix/.ro-store";
+                    #                         tag = "ro-store";
+                    #                         proto = "virtiofs";
+                    #                     }
+                    #                 ];
 
-                                    services.forgejo = {
-                                        package = pkgs.forgejo;
-                                        enable = true;
-                                        lfs.enable = true;
-                                        settings.service.DISABLE_REGISTRATION = true;
-                                    };
-                                };
-                            };
-                        };
-                    }
+                    #                 services.forgejo = {
+                    #                     package = pkgs.forgejo;
+                    #                     enable = true;
+                    #                     lfs.enable = true;
+                    #                     settings.service.DISABLE_REGISTRATION = true;
+                    #                 };
+                    #             };
+                    #         };
+                    #     };
+                    # }
                 ];
             };
 
             vali = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
-                specialArgs = { inherit inputs outputs; };
+                specialArgs = { inherit inputs; };
                  modules = [
-                    nixos-wsl.nixosModules.wsl
+                    wsl.nixosModules.wsl
                     home-manager.nixosModules.home-manager
-                    ./systems/x86_64-linux/vali
+                    ./hosts/x86_64-linux/vali
                 ];
             };
 
             nyx = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs outputs; };
+                specialArgs = { inherit inputs; };
                 modules = [
                     home-manager.nixosModules.home-manager
-                    ./systems/x86_64-linux/nyx
+                    ./hosts/x86_64-linux/nyx
                 ];
             };
 
             # Raspberry Pi 3b+
             narfi = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs outputs; };
+                specialArgs = { inherit inputs; };
                 modules = [
                     microvm.nixosModules.host
-                    ./systems/aarch64-linux/nyx
+                    ./hosts/aarch64-linux/nyx
                 ];
             };
         };
 
         darwinConfigurations = {
             njord = darwin.lib.darwinSystem {
-                specialArgs = { inherit inputs outputs; };
+                system = "aarch64-darwin";
+                specialArgs = { inherit inputs; };
                 modules = [ 
+                    ./hosts/aarch64-darwin/njord
                     home-manager.darwinModules.home-manager
-                    ./systems/aarch64-darwin/njord
                 ];
             };
         };
