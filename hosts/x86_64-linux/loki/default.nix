@@ -2,6 +2,11 @@
 {
     imports = [ ./hardware.nix ];
 
+    # Desktop Environment
+    services.xserver.enable = true;
+    services.xserver.desktopManager.budgie.enable = true;
+    services.xserver.displayManager.lightdm.enable = true;
+
     # Home Manager
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
@@ -59,6 +64,7 @@
     };
 
     # Nvidia GPU
+    # Open GL
     hardware.graphics = {
         enable = true;
         enable32Bit = true;
@@ -76,11 +82,6 @@
     # Networking
     networking.networkmanager.enable = true;
     networking.hostName = "loki";
-
-    # Desktop Environment
-    services.xserver.enable = true;
-    services.xserver.desktopManager.budgie.enable = true;
-    services.xserver.displayManager.lightdm.enable = true;
 
     # Steam
      programs.steam = {
@@ -106,6 +107,7 @@
         mangohud
         protonup
         kitty
+        vlc
         
         # For gaming purposes
         ananicy-cpp
