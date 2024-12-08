@@ -1,9 +1,100 @@
-{ self, inputs, pkgs, ... }:
+{ self, inputs, pkgs, config, ... }:
 {
-    boot.kernelPackages = pkgs.linuxPackages_latest;
-    # boot.kernelPackages = pkgs.linuxPackages_cachyos;
-    # chaotic.scx.enable = true; # by default uses scx_rustland scheduler
-    # chaotic.scx.scheduler = "scx_rusty";
+    imports = [ ./hardware.nix ];
+
+    # Home Manager
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.users.cosmeak = import ./../../../homes/x86_64-linux/loki/cosmeak;
+    users.users.cosmeak.home = "/home/cosmeak";
+    home-manager.backupFileExtension = "bak";
+
+    # EFI Bootloader
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.systemd-boot.configurationLimit = 10;
+
+    # https://github.com/NixOS/nixpkgs/blob/c32c39d6f3b1fe6514598fa40ad2cf9ce22c3fb7/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix#L66
+    boot.loader.systemd-boot.editor = false;
+
+    # Fonts
+    fonts.packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "Hack" ]; })
+    ];
+    environment.variables = {
+        # Enable icons in tooling since we have nerdfonts.
+        LOG_ICONS = "true";
+    };
+
+    # Locales
+    i18n.defaultLocale = "en_US.UTF-8";
+
+    i18n.extraLocaleSettings = {
+        LC_ADDRESS = "fr_FR.UTF-8";
+        LC_IDENTIFICATION = "fr_FR.UTF-8";
+        LC_MEASUREMENT = "fr_FR.UTF-8";
+        LC_MONETARY = "fr_FR.UTF-8";
+        LC_NAME = "fr_FR.UTF-8";
+        LC_NUMERIC = "fr_FR.UTF-8";
+        LC_PAPER = "fr_FR.UTF-8";
+        LC_TELEPHONE = "fr_FR.UTF-8";
+        LC_TIME = "fr_FR.UTF-8";
+    };
+
+    # Timezone
+    time.timeZone = "Europe/Paris";
+
+    # Keyboard
+    services.xserver.xkb.layout = "us";
+
+    # Audio
+    hardware.pulseaudio.enable = false;
+    security.rtkit.enable = true;
+    services.pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+        jack.enable = true;
+    };
+
+    # Nvidia GPU
+    hardware.graphics = {
+        enable = true;
+        enable32Bit = true;
+    };
+    services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.nvidia = {
+        # package = config.boot.kernelPackages.nvidiaPackages.beta;
+        modesetting.enable = true;
+        powerManagement.enable = false;
+        powerManagement.finegrained = false;
+        open = false;
+        nvidiaSettings = true;
+    };
+
+    # Networking
+    networking.networkmanager.enable = true;
+    networking.hostName = "loki";
+
+    # Desktop Environment
+    services.xserver.enable = true;
+    services.xserver.desktopManager.budgie.enable = true;
+    services.xserver.displayManager.lightdm.enable = true;
+
+    # Steam
+     programs.steam = {
+        enable = true;
+        gamescopeSession.enable = true;
+    };
+    environment.sessionVariables = {
+        STEAM_EXTRA_COMPAT_TOOS_PATHS = "/home/cosmeak/.steam/root/compatibilitytools.d";
+    };
+
+    # Shell
+    users.defaultUserShell = pkgs.zsh;
+    users.users.root.shell = pkgs.bashInteractive;
+    programs.zsh.enable = true;
 
     # Enable automatic login for the user.
     services.displayManager.autoLogin.enable = true;
@@ -15,7 +106,10 @@
         mangohud
         protonup
         kitty
-        modrinth-app
+        
+        # For gaming purposes
+        ananicy-cpp
+        ananicy-rules-cachyos
     ];
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -27,6 +121,9 @@
 
     # Enable or not CUPS to print documents.
     services.printing.enable = false;
+
+    # Enable unfree packages
+    nixpkgs.config.allowUnfree = true;
 
     # Perform garbage collection weekly to maintain low disk usage
     nix.gc = {

@@ -28,46 +28,18 @@
     
     outputs = { self, nixpkgs, darwin, wsl, home-manager, microvm, hardware, ... }@inputs:   
     {
-        # overlays = import ./overlays { inherit inputs; };
+        overlays = import ./overlays { inherit inputs; };
 
         nixosConfigurations = {
             loki = nixpkgs.lib.nixosSystem {
+		        system = "x86_64-linux";
                 specialArgs = { inherit inputs; }; 
                 modules = [
                     home-manager.nixosModules.home-manager
                     ./hosts/x86_64-linux/loki
-
-                    # This below is for testing purpose before putting up my homelab
-                    # microvm.nixosModules.host
-                    # {
-                    #     microvm.autostart = [
-                    #         "forjego"
-                    #     ];
-
-                    #     microvm.vms = {
-                    #         forgejo = {
-                    #             pkgs = import nixpkgs { system = "x86_64-linux"; };
-
-                    #             config = {
-                    #                 microvm.share = [
-                    #                     {
-                    #                         source = "/nix/store";
-                    #                         mountPoint = "/nix/.ro-store";
-                    #                         tag = "ro-store";
-                    #                         proto = "virtiofs";
-                    #                     }
-                    #                 ];
-
-                    #                 services.forgejo = {
-                    #                     package = pkgs.forgejo;
-                    #                     enable = true;
-                    #                     lfs.enable = true;
-                    #                     settings.service.DISABLE_REGISTRATION = true;
-                    #                 };
-                    #             };
-                    #         };
-                    #     };
-                    # }
+                    {
+                        nixpkgs.overlays = [ self.outputs.overlays.unstable-packages ];
+                    }
                 ];
             };
 

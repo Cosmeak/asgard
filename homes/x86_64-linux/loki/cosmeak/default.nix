@@ -1,10 +1,9 @@
-{ lib, pkgs, inputs, namespace, config, ... }:
-with lib;
-with lib.${namespace};
+{ inputs, pkgs, ... }:
 {
-    home.packages = with pkgs; with inputs; [
+    home.packages = with pkgs; [
         brave
         btop
+	    discord-canary
         just
         lazygit
         lutris
@@ -13,11 +12,43 @@ with lib.${namespace};
         prismlauncher
         spotify
         thunderbird
-        vesktop
+        # vesktop
         vscodium
         zed-editor
-        zen-browser.packages.${system}.specific
+
+        # Shell
+        bat
+        eza
+        fzf
+        zoxide
+        starship
+        zsh
+        tree
     ];
+
+    programs.kitty = {
+        enable = true;
+        shellIntegration.enableZshIntegration = true;
+        themeFile = "Monokai_Pro";
+    };
+
+    programs.starship = {
+        enable = true;
+        enableZshIntegration = true;
+    };
+
+    programs.zsh = {
+        enable = true;
+        enableCompletion = true;
+        shellAliases = {
+            ls = "eza -la --icons --no-user --no-time --git -s type";
+            cat = "bat";
+            cd = "z";
+        };
+        initExtra = ''
+            eval "$(zoxide init zsh)"
+        '';
+    };
 
     # You do not need to change this if you're reading this in the future.
     # Don't ever change this after the first build. Don't ask questions.
