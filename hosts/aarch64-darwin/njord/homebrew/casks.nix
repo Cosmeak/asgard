@@ -4,15 +4,16 @@
     "zed"
     "vscodium" # used for jupyter notebook because not available in zed at this time
     "beekeeper-studio" # find a better alternative
-    "insomnia" 
+    "insomnia"
     "orbstack" # replace with simple docker desktop
     "figma"
     "dbngin" # will be removed when all my project will used flakes and docker for databases
+    "arduino-ide"
 
     # Apps
     "spotify"
-    "discord" 
-    "thunderbird" # install via nix if possible
+    "discord"
+    "thunderbird" # install via nix if possiblex
     "obsidian"
     "brave-browser"
 

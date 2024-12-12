@@ -1,4 +1,4 @@
-{ inputs, pkgs, ...}: 
+{ inputs, pkgs, ...}:
 {
   home.packages = with pkgs; [
     bat
@@ -18,6 +18,7 @@
 
     extraConfig = {
       core.editor = "codium";
+      pull.rebase = true;
     };
   };
 
