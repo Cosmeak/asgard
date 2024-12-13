@@ -8,7 +8,7 @@
             inputs.nixpkgs.follows= "nixpkgs";
         };
 
-        nixos-wsl = {
+        wsl = {
             url = "github:nix-community/NixOS-WSL";
             inputs.nixpkgs.follows= "nixpkgs";
         };
@@ -18,41 +18,68 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # The name "snowfall-lib" is required due to how Snowfall Lib processes your
-        # flake's inputs.
-        snowfall-lib = {
-            url = "github:snowfallorg/lib";
-            inputs.nixpkgs.follows = "nixpkgs";
+        microvm = {
+            url = "github:astro/microvm.nix";
+            inputs.nixpkgs.url = "nixpkgs";
         };
 
-        # Additionnal pkgs
-        zen-browser.url = "github:0xc000022070/zen-browser-flake";
-        # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+        hardware.url = "github:NixOS/nixos-hardware/master";
     };
-    outputs = inputs : inputs.snowfall-lib.mkFlake  {
-        inherit inputs;
-        src = ./.;
-        snowfall.namespace = "asgard";
-        snowfall.meta.name = "asgard";
-        snowfall.meta.description = "Domain of the Aesir";
+    
+    outputs = { self, nixpkgs, darwin, wsl, home-manager, microvm, hardware, ... }@inputs:   
+    {
+        overlays = import ./overlays { inherit inputs; };
 
-        channels-config.allowUnfree = true;
-        channels-config.allowBroken = true;
+        nixosConfigurations = {
+            loki = nixpkgs.lib.nixosSystem {
+		        system = "x86_64-linux";
+                specialArgs = { inherit inputs; }; 
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    ./hosts/x86_64-linux/loki
+                    {
+                        nixpkgs.overlays = [ self.outputs.overlays.unstable-packages ];
+                    }
+                ];
+            };
 
-        systems.modules.nixos = with inputs; [
-            home-manager.nixosModules.home-manager
-        ];
+            vali = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit inputs; };
+                 modules = [
+                    wsl.nixosModules.wsl
+                    home-manager.nixosModules.home-manager
+                    ./hosts/x86_64-linux/vali
+                ];
+            };
 
-        systems.modules.darwin = with inputs; [
-            home-manager.darwinModules.home-manager
-        ];
+            nyx = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs; };
+                modules = [
+                    home-manager.nixosModules.home-manager
+                    ./hosts/x86_64-linux/nyx
+                ];
+            };
 
-        homes.modules = with inputs; [
-            # inputs.chaotic.homeManagerModules.default
-        ];
+            # Raspberry Pi 3b+
+            narfi = nixpkgs.lib.nixosSystem {
+                specialArgs = { inherit inputs; };
+                modules = [
+                    microvm.nixosModules.host
+                    ./hosts/aarch64-linux/nyx
+                ];
+            };
+        };
 
-        systems.hosts.vali.modules = with inputs; [
-            nixos-wsl.nixosModules.wsl
-        ];
+        darwinConfigurations = {
+            njord = darwin.lib.darwinSystem {
+                system = "aarch64-darwin";
+                specialArgs = { inherit inputs; };
+                modules = [ 
+                    ./hosts/aarch64-darwin/njord
+                    home-manager.darwinModules.home-manager
+                ];
+            };
+        };
     };
 }
