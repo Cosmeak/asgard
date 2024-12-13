@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }:
 {
     imports = [ 
-        # TODO: Add shared config
+       ./../../../_shared/cosmeak
      ];
 
     home.username = "cosmeak";
@@ -16,7 +16,6 @@
         python310      
 
         # CLI
-        neovim
         tree
         btop
         lazygit

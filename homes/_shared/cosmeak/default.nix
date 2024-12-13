@@ -1,5 +1,7 @@
 { inputs, pkgs, ...}:
 {
+  imports = [ ./neovim ]; 
+
   home.packages = with pkgs; [
     bat
     eza
