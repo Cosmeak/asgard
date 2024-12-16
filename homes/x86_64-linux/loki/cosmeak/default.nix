@@ -5,7 +5,6 @@
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
-        brave
         btop
 	    discord-canary
         just
@@ -19,9 +18,7 @@
         vscodium
     ];
 
-    
-
     # You do not need to change this if you're reading this in the future.
     # Don't ever change this after the first build. Don't ask questions.
-    home.stateVersion = "24.05";
+    home.stateVersion = "24.11";
 }
