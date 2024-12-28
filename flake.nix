@@ -24,6 +24,8 @@
         };
 
         hardware.url = "github:NixOS/nixos-hardware/master";
+
+        ghostty.url = "github:ghostty-org/ghostty";
     };
     
     outputs = { self, nixpkgs, darwin, wsl, home-manager, microvm, hardware, ... }@inputs:   

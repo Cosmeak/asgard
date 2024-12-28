@@ -19,7 +19,7 @@
     # Home Manager
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.cosmeak = import ./../../../homes/x86_64-linux/loki/cosmeak;
+    home-manager.users.cosmeak = import ./../../../homes/x86_64-linux/loki/cosmeak { inherit inputs pkgs; };
     users.users.cosmeak.home = "/home/cosmeak";
     home-manager.backupFileExtension = "bak";
 
