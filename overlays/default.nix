@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, outputs, ... }:
 {
     # The unstable nixpkgs set (declared in the flake inputs) will
     # be accessible through `pkgs.unstable`
@@ -8,4 +8,6 @@
             config.allowUnfree = true;
         };
     };
+
+    dwl = import ./dwl { inherit inputs outputs; };
 }

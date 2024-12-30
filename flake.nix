@@ -26,9 +26,10 @@
         hardware.url = "github:NixOS/nixos-hardware/master";
     };
     
-    outputs = { self, nixpkgs, darwin, ... }@inputs:   
+    outputs = { self, nixpkgs, darwin, ... }@inputs:
+    let inherit (self) outputs; in   
     {
-        overlays = import ./overlays { inherit inputs; };
+        overlays = import ./overlays { inherit inputs outputs; };
 
         nixosConfigurations = {
             loki = nixpkgs.lib.nixosSystem {
@@ -38,8 +39,9 @@
                     inputs.home-manager.nixosModules.home-manager
                     ./hosts/x86_64-linux/loki
                     {
-                        nixpkgs.overlays = [ self.outputs.overlays.unstable-packages ];
+                        nixpkgs.overlays = [ self.outputs.overlays.unstable-packages self.outputs.overlays.dwl ];
                     }
+                    ./modules/nixos/desktop/dwl
                 ];
             };
 
