@@ -3,6 +3,7 @@
     imports = [
         ./homebrew
         ./system
+        inputs.home-manager.darwinModules.home-manager
     ];
 
     # Home Manager

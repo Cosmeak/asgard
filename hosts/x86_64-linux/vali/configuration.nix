@@ -8,6 +8,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    inputs.wsl.nixosModules.wsl
+    inputs.home-manager.nixosModules.home-manager
+  ];
+
   wsl.enable = true;
   wsl.defaultUser = "vali";
   

@@ -1,6 +1,9 @@
 { self, inputs, pkgs, config, ... }:
 {
-    imports = [ ./hardware.nix ];
+    imports = [ 
+        ./hardware.nix
+        inputs.home-manager.nixosModules.home-manager
+    ];
 
     security.polkit.enable = true;
     programs.xwayland.enable = true;
@@ -138,6 +141,7 @@
 
     # Enable unfree packages
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.overlays = [ self.outputs.overlays.unstable-packages self.outputs.overlays.dwl ];
 
     # Perform garbage collection weekly to maintain low disk usage
     nix.gc = {

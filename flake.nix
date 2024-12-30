@@ -34,34 +34,24 @@
         nixosConfigurations = {
             loki = nixpkgs.lib.nixosSystem {
 		        system = "x86_64-linux";
-                specialArgs = { inherit inputs; }; 
+                specialArgs = { inherit inputs self; }; 
                 modules = [
-                    inputs.home-manager.nixosModules.home-manager
                     ./hosts/x86_64-linux/loki
-                    {
-                        nixpkgs.overlays = [ self.outputs.overlays.unstable-packages self.outputs.overlays.dwl ];
-                    }
                     ./modules/nixos/desktop/dwl
                 ];
             };
 
+            # TODO: rework configuration not being usable at the moment
+            # nyx = nixpkgs.lib.nixosSystem {
+            #     specialArgs = { inherit inputs; };
+            #     modules = [ ./hosts/x86_64-linux/nyx ];
+            # };
+
             # vali = nixpkgs.lib.nixosSystem {
             #     system = "x86_64-linux";
             #     specialArgs = { inherit inputs; };
-            #      modules = [
-            #         inputs.wsl.nixosModules.wsl
-            #         inputs.home-manager.nixosModules.home-manager
-            #         ./hosts/x86_64-linux/vali
-            #     ];
+            #      modules = [ ./hosts/x86_64-linux/vali ];
             # };
-
-            nyx = nixpkgs.lib.nixosSystem {
-                specialArgs = { inherit inputs; };
-                modules = [
-                    inputs.home-manager.nixosModules.home-manager
-                    ./hosts/x86_64-linux/nyx
-                ];
-            };
 
             # Raspberry Pi 3b+
             # narfi = nixpkgs.lib.nixosSystem {
@@ -77,10 +67,7 @@
             njord = darwin.lib.darwinSystem {
                 system = "aarch64-darwin";
                 specialArgs = { inherit inputs; };
-                modules = [ 
-                    ./hosts/aarch64-darwin/njord
-                    inputs.home-manager.darwinModules.home-manager
-                ];
+                modules = [ ./hosts/aarch64-darwin/njord ];
             };
         };
     };

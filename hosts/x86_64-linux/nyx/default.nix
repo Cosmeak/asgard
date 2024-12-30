@@ -2,7 +2,10 @@
 with lib;
 with lib.${namespace};
 {
-  imports = [ ./hardware.nix ];
+  imports = [ 
+    ./hardware.nix
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
     asgard = {
         system = {
