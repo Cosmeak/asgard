@@ -3,13 +3,13 @@
     imports = [ ./hardware.nix ];
 
     # Desktop Environment
-    services.xserver.enable = true;
-    #services.xserver.desktopManager.budgie.enable = true;
-    #services.xserver.displayManager.lightdm.enable = true;
     services.xserver = {
+      enable = true;
       desktopManager = {
         xterm.enable = false;
         xfce.enable = true;
+        # budgie.enable = true;
+        # lightdm.enable = true;
       };
     };
     services.displayManager.defaultSession = "xfce";
