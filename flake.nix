@@ -3,27 +3,19 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
         unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-        darwin = {
-            url = "github:LnL7/nix-darwin";
-            inputs.nixpkgs.follows= "nixpkgs";
-        };
+        darwin.url = "github:LnL7/nix-darwin";
+        darwin.inputs.nixpkgs.follows= "nixpkgs";
 
-        # wsl = {
-        #     url = "github:nix-community/NixOS-WSL";
-        #     inputs.nixpkgs.follows= "nixpkgs";
-        # };
+        # wsl.url = "github:nix-community/NixOS-WSL";
+        # wsl.inputs.nixpkgs.follows= "nixpkgs";
 
-        home-manager = {
-            url = "github:nix-community/home-manager/release-24.11";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+        # hardware.url = "github:NixOS/nixos-hardware/master";
 
-        # microvm = {
-        #     url = "github:astro/microvm.nix";
-        #     inputs.nixpkgs.url = "nixpkgs";
-        # };
+        # microvm.url = "github:astro/microvm.nix";
+        # microvm.inputs.nixpkgs.url = "nixpkgs";
 
-        hardware.url = "github:NixOS/nixos-hardware/master";
+        home-manager.url = "github:nix-community/home-manager/release-24.11";
+        home-manager.inputs.nixpkgs.follows = "nixpkgs";
     };
     
     outputs = { self, nixpkgs, darwin, ... }@inputs:
@@ -56,10 +48,7 @@
             # Raspberry Pi 3b+
             # narfi = nixpkgs.lib.nixosSystem {
             #     specialArgs = { inherit inputs; };
-            #     modules = [
-            #         inputs.microvm.nixosModules.host
-            #         ./hosts/aarch64-linux/nyx
-            #     ];
+            #     modules = [ ./hosts/aarch64-linux/nyx ];
             # };
         };
 

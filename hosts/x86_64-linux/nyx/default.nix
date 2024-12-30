@@ -5,6 +5,7 @@ with lib.${namespace};
   imports = [ 
     ./hardware.nix
     inputs.home-manager.nixosModules.home-manager
+    inputs.microvm.nixosModules.host
   ];
 
     asgard = {
