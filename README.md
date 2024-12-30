@@ -4,7 +4,7 @@
 
 This configuration is under constant construction so some things may be remove or add accordings to my needs but i want to keep all even if it's not used anymore.
 
-This repository follow the KISS principle at this moment, but feel free to propose improvement and to help me understand better how nix work.
+This repository follow the KISS principle and the suckless idea at this moment, but feel free to propose improvement and to help me understand better how nix work.
 
 > [!IMPORTANT]
 > This configuration is make for our purpose, you can take inspiration and some configuration but do not expect it to work on your side.🙂
@@ -13,29 +13,33 @@ This repository follow the KISS principle at this moment, but feel free to propo
 
 ## ✨️ - Features
 
+This repository want this to be multi-user and multi-host so there is some workaround to make things work like i want and keep it simple.
+
 - [x] NixOS
 - [x] Nix Darwin
 - [ ] Nix BSD
 - [ ] WSL
 - [ ] Homelab with MicroVM
-- [ ] Secrets management
+- [ ] Secrets management with Agenix
+- [ ] Secure Boot with lanzaboot
+- [ ] Persistant storage with impermanence
+- [ ] Disk configuration with disko
+- [ ] Encrypted disks
 - [x] Default on stable channel and have unstable as an overlay (take from [here](https://github.com/AlexNabokikh/nix-config))
-- [ ] Dotfiles management
+- [x] Home Manager for dotfiles management
 - [ ] Custom live ISO
 - [ ] Auto-updating flakes
-- [ ] Encrypted disks
-- [ ] Secure Boot
 
 ## 💻 - Hosts
 
-|  Hostname  |            Motherboard            |          CPU         |        GPU        |  RAM | OS  | Usage    | Status |
-|:----------:|:---------------------------------:|:--------------------:|:-----------------:|:----:|:---:|:-------:|:------:|
-| `njord`    | -                                 | Apple M2 Pro Chip    | Apple M2 Pro Chip | 32Go | 🍎️  | ⌨        | 🟢️     |
-| `loki`     | ASUS ROG STRIX B760-I GAMING WIFI | Intel i5 13600kf     | Nvidia 4070ti     | 32Go | ❄️  | 🎮️ / 🎭️ | 🟢️     |
-| `hvedrung` | ⤴️                                | ⤴️                   | ⤴️               | ⤴️   | 👹️  | 🧨️ / 🎭️ | 🔴️     |
-| `nyx`      | Aorus B450 Elite                  | AMD Ryzen 3 3300X    | Nvidia 1060       | 16GO | ❄️  | 🎮️ / ⌨️  | 🟢️     |
-| `beowulf`  | HP ProDesk 400 G1 DM              | Intel Pentium G3250T | -                 | 8Go  | ❄️  | 💾️      | 🟠     |
-| `vali`     | WSL                               | Intel i5-1135G7      | -                 | 16Go | ❄️  | ⌨️       | 🟠     |
+|  Hostname  |            Motherboard            |         CPU          |        GPU        | RAM  | OS  |   Usage   | Status |
+| :--------: | :-------------------------------: | :------------------: | :---------------: | :--: | :-: | :-------: | :----: |
+|  `njord`   |                 -                 |  Apple M2 Pro Chip   | Apple M2 Pro Chip | 32Go | 🍎️ |     ⌨     |  🟢️   |
+|   `loki`   | ASUS ROG STRIX B760-I GAMING WIFI |   Intel i5 13600kf   |   Nvidia 4070ti   | 32Go | ❄️  | 🎮️ / 🎭️ |  🟢️   |
+| `hvedrung` |                ⤴️                 |          ⤴️          |        ⤴️         |  ⤴️  | 👹️ | 🧨️ / 🎭️ |  🔴️   |
+|   `nyx`    |         Aorus B450 Elite          |  AMD Ryzen 3 3300X   |    Nvidia 1060    | 16GO | ❄️  | 🎮️ / ⌨️  |  🟢️   |
+| `beowulf`  |       HP ProDesk 400 G1 DM        | Intel Pentium G3250T |         -         | 8Go  | ❄️  |    💾️    |   🟠   |
+|   `vali`   |                WSL                |   Intel i5-1135G7    |         -         | 16Go | ❄️  |    ⌨️     |   🟠   |
 
 <details>
   <summary>Legend</summary>
@@ -57,9 +61,13 @@ This repository follow the KISS principle at this moment, but feel free to propo
 ```
 .
 ├── homes        # User home configuration
-│  ├── <user>@shared   # Shared dotfiles between user configuration
-│  └── <user>@<host>   # Personal folders for dotfiles
+│  ├── _shared   # Shared dotfiles between user configuration
+│  │  └── <system>
+│  │  │  └── <hostname>
+│  │  │  │  └── <username> # User host specific dotfiles
 ├── hosts        # Host-specific configuration
+│  └── <system>
+│  │  └── <hostname>
 ├── lib          # Custom functions needed to help configure
 ├── modules      # macOS and nix-darwin, NixOS, and shared configuration
 │  ├── shared       # Shared modules across all platforms
