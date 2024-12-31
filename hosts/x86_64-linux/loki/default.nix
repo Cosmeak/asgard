@@ -112,13 +112,11 @@
         protonup
         kitty
         vlc
+        pavucontrol
         
         # For gaming purposes
         ananicy-cpp
         ananicy-rules-cachyos
-
-	# Desktop
-	swaybg
     ];
 
     # Define a user account. Don't forget to set a password with ‘passwd’.

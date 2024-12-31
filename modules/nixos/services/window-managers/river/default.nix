@@ -15,5 +15,23 @@ let cfg = config.services.windowManager.river; in
       xwayland.enable = true;
       extraPackages = cfg.extraPackages;
     };
+
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = ''${pkgs.greetd.tuigreet}/bin/tuigreet \
+            --remember \
+            --remember-session \
+            --asterisks \
+            --time '';
+        user = "greeter";
+        };
+      };
+    };
+
+    environment.etc."greetd/environments".text = ''
+      river
+    '';
   });
 } 
