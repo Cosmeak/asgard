@@ -5,7 +5,7 @@ let cfg = config.services.windowManager.river; in
     enable = lib.mkEnableOption "River - A Wayland Window Manager";
     extraPackages = lib.mkOption {
       type = with lib.types; listOf package;
-      default = with pkgs; [ swaylock swaybg swayidle dmenu fuzzel waybar foot ];
+      default = with pkgs; [ swaylock swaybg swayidle dmenu fuzzel waybar foot yazi ];
     };
   };
 
@@ -25,7 +25,7 @@ let cfg = config.services.windowManager.river; in
             --remember-session \
             --asterisks \
             --time '';
-        user = "greeter";
+          user = "greeter";
         };
       };
     };

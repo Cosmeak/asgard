@@ -10,6 +10,9 @@ _:
 
       # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
+      # Setup wallpaper with swaybg
+      riverctl spawn "swaybg -m fill -i ${builtins.toString ./../../../../..}/wallpapers/Witcher_3_Skellige_Mountain-Ansel_paint_filter.png"
+
       # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
       riverctl map normal Super+Shift Return spawn foot
 
