@@ -2,23 +2,12 @@
 {
     imports = [ 
         ./hardware.nix
+        ./../../../modules/nixos/services/window-managers/river
         inputs.home-manager.nixosModules.home-manager
     ];
 
-    security.polkit.enable = true;
-    programs.xwayland.enable = true;
-
-    # Desktop Environment
-    # services.xserver = {
-    #   enable = true;
-    #   desktopManager = {
-    #     xterm.enable = false;
-    #     xfce.enable = true;
-    #     # budgie.enable = true;
-    #     # lightdm.enable = true;
-    #   };
-    # };
-    # services.displayManager.defaultSession = "xfce";
+    # Window manager
+    services.windowManager.river.enable = true;
 
     programs.firefox.enable = true;
 
@@ -127,6 +116,9 @@
         # For gaming purposes
         ananicy-cpp
         ananicy-rules-cachyos
+
+	# Desktop
+	swaybg
     ];
 
     # Define a user account. Don't forget to set a password with ‘passwd’.

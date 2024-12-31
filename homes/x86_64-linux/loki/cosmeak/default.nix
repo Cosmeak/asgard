@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-    imports = [ ./../../../_shared/cosmeak ];
+    imports = [ ./../../../_shared/cosmeak ./river ];
 
     programs.home-manager.enable = true;
 

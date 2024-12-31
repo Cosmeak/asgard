@@ -27,9 +27,7 @@
             loki = nixpkgs.lib.nixosSystem {
 		        system = "x86_64-linux";
                 specialArgs = { inherit inputs self; }; 
-                modules = [
-                    ./hosts/x86_64-linux/loki
-                    ./modules/nixos/desktop/dwl
+                modules = [ ./hosts/x86_64-linux/loki
                 ];
             };
 
