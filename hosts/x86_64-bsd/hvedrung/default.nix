@@ -1,4 +1,0 @@
-{ self, inputs, pkgs, ... }:
-{
-  #
-}

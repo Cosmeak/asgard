@@ -9,8 +9,6 @@
     # Window manager
     services.windowManager.river.enable = true;
 
-    programs.firefox.enable = true;
-
     # Home Manager
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
@@ -110,14 +108,21 @@
         git
         mangohud
         protonup
-        kitty
         vlc
         pavucontrol
         
+        inputs.zen-browser.packages."${system}".default
+
         # For gaming purposes
         ananicy-cpp
         ananicy-rules-cachyos
     ];
+
+    # Unlock 1password browser extension for zen
+    environment.etc."1password/custom_allowed_browsers" = {
+        text = ".zen-wrapped";
+        mode = "0755";
+    };
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.cosmeak = {
@@ -131,7 +136,7 @@
 
     # Enable unfree packages
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.overlays = [ self.outputs.overlays.unstable-packages self.outputs.overlays.dwl ];
+    # nixpkgs.overlays = [ self.outputs.overlays.unstable-packages self.outputs.overlays.dwl ];
 
     # Perform garbage collection weekly to maintain low disk usage
     nix.gc = {
@@ -148,7 +153,7 @@
     nix.settings.auto-optimise-store = true;
 
     # Enable flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

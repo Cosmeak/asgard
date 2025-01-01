@@ -16,6 +16,8 @@
 
         home-manager.url = "github:nix-community/home-manager/release-24.11";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
+        
+        zen-browser.url = "github:0xc000022070/zen-browser-flake";
     };
     
     outputs = { self, nixpkgs, darwin, ... }@inputs:
@@ -27,8 +29,7 @@
             loki = nixpkgs.lib.nixosSystem {
 		        system = "x86_64-linux";
                 specialArgs = { inherit inputs self; }; 
-                modules = [ ./hosts/x86_64-linux/loki
-                ];
+                modules = [ ./hosts/x86_64-linux/loki ];
             };
 
             # TODO: rework configuration not being usable at the moment
