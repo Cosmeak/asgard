@@ -13,11 +13,16 @@ _:
       # Setup wallpaper with swaybg
       riverctl spawn "swaybg -m fill -i ${builtins.toString ./../../../../..}/wallpapers/Witcher_3_Skellige_Mountain-Ansel_paint_filter.png"
 
+      # Spawn waybar
+      riverctl spawn waybar
+
+      # Spawn discord at login
+      riverctl spawn discord
+
       # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
       riverctl map normal Super+Shift Return spawn foot
 
       # Super+P to open application launcher
-      # riverctl map normal Super P spawn dmenu
       riverctl map normal Super P spawn fuzzel
 
       # Super+Q to close the focused view
@@ -116,23 +121,10 @@ _:
       riverctl map normal Super Down  send-layout-cmd rivertile "main-location bottom"
       riverctl map normal Super Left  send-layout-cmd rivertile "main-location left"
 
-      # Declare a passthrough mode. This mode has only a single mapping to return to
-      # normal mode. This makes it useful for testing a nested wayland compositor
-      riverctl declare-mode passthrough
-
-      # Super+F11 to enter passthrough mode
-      riverctl map normal Super F11 enter-mode passthrough
-
-      # Super+F11 to return to normal mode
-      riverctl map passthrough Super F11 enter-mode normal
-
       # Various media key mapping examples for both normal and locked mode which do
       # not have a modifier
       for mode in normal locked
       do
-          # Eject the optical drive (well if you still have one that is)
-          riverctl map $mode None XF86Eject spawn 'eject -T'
-
           # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
           riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
           riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'

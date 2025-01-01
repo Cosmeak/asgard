@@ -1,12 +1,12 @@
 { inputs, pkgs, ... }:
 {
-    imports = [ ./../../../_shared/cosmeak ./river ];
+    imports = [ ./../../../_shared/cosmeak ./river ./waybar ];
 
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
         btop
-	    discord-canary
+	    discord
         just
         lazygit
         lutris
