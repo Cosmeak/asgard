@@ -21,16 +21,16 @@
     };
     
     outputs = { self, nixpkgs, darwin, ... }@inputs:
-    let inherit (self) outputs; in   
+    let inherit (self) outputs; lib = import ./lib { inherit self inputs; }; in   
     {
         overlays = import ./overlays { inherit inputs outputs; };
 
         nixosConfigurations = {
-            loki = nixpkgs.lib.nixosSystem {
-		        system = "x86_64-linux";
-                specialArgs = { inherit inputs self; }; 
-                modules = [ ./hosts/x86_64-linux/loki ];
-            };
+            # loki = nixpkgs.lib.nixosSystem {
+		    #     system = "x86_64-linux";
+            #     specialArgs = { inherit inputs self; }; 
+            #     modules = [ ./hosts/x86_64-linux/loki ];
+            # };
 
             # TODO: rework configuration not being usable at the moment
             # nyx = nixpkgs.lib.nixosSystem {
@@ -58,5 +58,5 @@
                 modules = [ ./hosts/aarch64-darwin/njord ];
             };
         };
-    };
+    } // (lib.host.mkHost { system = "x86_64-linux"; hostname = "loki"; path = ./hosts/x86_64-linux/loki/default.nix; });
 }

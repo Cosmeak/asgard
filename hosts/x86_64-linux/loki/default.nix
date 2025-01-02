@@ -2,7 +2,7 @@
 {
     imports = [ 
         ./hardware.nix
-        ./../../../modules/nixos/services/window-managers/river
+        # ./../../../modules/nixos/services/window-managers/river
         inputs.home-manager.nixosModules.home-manager
     ];
 

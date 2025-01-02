@@ -33,7 +33,7 @@ rec {
       mapFile = name: type: let
         path' = "${path}/${name}";
       in 
-        if type == "directory"
+        if type |> isDirectory
         then getFilesRecursively path'
         else path';
       files = lib.flatten (lib.mapAttrsToList mapFile entries);
@@ -45,14 +45,14 @@ rec {
 
     ## Get all default files from a folder recursively
     #@ Path -> []Path
-    getDefaultFiles = path: getFilesRecursively path |> builtins.filter (name: builtins.basNameOf name == "default.nix");
+    getDefaultFiles = path: getFilesRecursively path |> builtins.filter (name: builtins.baseNameOf name == "default.nix");
   };
 
   module = rec {
-    getCommonModules = getDefaultFiles ./../modules/common;
-    getNixosModules = getDefaultFiles ./../modules/nixos ++ getCommonModules;
-    getDarwinModules = getDefaultFiles ./../modules/darwin ++ getCommonModules;
-    getHomeManagerModules = getDefaultFiles ./../modules/home-manager;
+    getCommonModules = fs.getDefaultFiles ./../modules/common;
+    getNixosModules = fs.getDefaultFiles ./../modules/nixos ++ getCommonModules;
+    getDarwinModules = fs.getDefaultFiles ./../modules/darwin ++ getCommonModules;
+    getHomeManagerModules = fs.getDefaultFiles ./../modules/home-manager;
   };
 
   overlay = rec {
@@ -74,28 +74,26 @@ rec {
     #@ String -> [Attrs]
     getSystemHostsInformations = systemPath: let 
       hosts = fs.getDirectories systemPath;
-      mkHostInformations = path: rec {
-        system = builtins.basNameOf systemPath;
-        hostname = builtins.basNameOf path;
+      mkHostInformations = path: {
+        system = builtins.baseNameOf systemPath;
+        hostname = builtins.baseNameOf path;
         path = fs.getDefaultFile path;
-        builder = getHostBuilder system;
-        output = getHostSystemOutput system;
       };
       hostsInformations = builtins.map hosts;
     in hostsInformations;
 
     ## Get the name of the system output
     #@ String -> String
-    getHostSystemOutput = system: if system |> isDarwin then "darwinConfiguration" else "NixosConfiguration";
+    getHostSystemOutput = system: if system |> isDarwin then "darwinConfigurations" else "nixosConfigurations";
 
     ## Get the system host builder
     #@ String -> Functions
     getHostBuilder = system: let
       linuxBuilder = args: lib.nixosSystem (args // {
-        modules = args.modules ++ [];
+        modules = args.modules ++ module.getNixosModules;
       });
       darwinBuilder = args: inputs.darwin.lib.darwinSystem (args // {
-        modules = args.modules ++ [];
+        modules = args.modules ++ module.getDarwinModules;
       });
     in
       if system |> isDarwin
@@ -108,10 +106,10 @@ rec {
       system,
       hostname,
       path,
-      builder,
-      output
+      builder ? getHostBuilder system,
+      output ? getHostSystemOutput system
     }: {
-      ${output} = ${builder} {
+      ${output}.${hostname} = builder {
         system = system;
         specialArgs = { inherit inputs self; };
         modules = [ path ];
@@ -121,7 +119,7 @@ rec {
     ## Create all available hosts
     #@ Attrs -> Attrs
     mkHosts = let 
-      systems = getDirectories ./../hosts;
+      systems = fs.getDirectories ./../hosts;
       hostsInformations = lib.concatMap getSystemHostsInformations systems;
     in {
 
