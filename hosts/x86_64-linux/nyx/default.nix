@@ -1,29 +1,25 @@
-{ lib, pkgs, inputs, namespace, system, target, format, virtual, systems, config, ... }:
+{ self, inputs, pkgs, config, ... }:
 with lib;
 with lib.${namespace};
 {
-  imports = [ 
-    ./hardware.nix
-    inputs.home-manager.nixosModules.home-manager
-    inputs.microvm.nixosModules.host
-  ];
+  imports = [ ./hardware.nix ];
 
-    asgard = {
-        system = {
-            bootloader.enable = true;
-        };
+    # asgard = {
+    #     system = {
+    #         bootloader.enable = true;
+    #     };
 
-        hardware = {
-            gpu.nvidia.enable = true;
-            audio.enable = true;
-        };
+    #     hardware = {
+    #         gpu.nvidia.enable = true;
+    #         audio.enable = true;
+    #     };
 
-        desktop.budgie.enable = true;
+    #     desktop.budgie.enable = true;
 
-        apps = {
-            steam.enable = true;
-        };
-    };
+    #     apps = {
+    #         steam.enable = true;
+    #     };
+    # };
 
   networking.hostName = "nyx"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

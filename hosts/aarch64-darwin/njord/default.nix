@@ -27,7 +27,7 @@
 
     # System wide packages
     environment.systemPackages = with pkgs; [
-        # Add packages here
+      just
     ];
 
     # Garbage collector
@@ -45,7 +45,7 @@
     nixpkgs.config.allowUnfree = true;
 
     # Enable flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
 
     # Use nix as a daemon
     services.nix-daemon.enable = true;

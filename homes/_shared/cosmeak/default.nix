@@ -1,6 +1,6 @@
 { inputs, pkgs, ...}:
 {
-  imports = [ ./neovim ]; 
+  imports = [ ./neovim ];
 
   home.packages = with pkgs; [
     bat

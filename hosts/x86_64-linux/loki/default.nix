@@ -1,13 +1,13 @@
 { self, inputs, pkgs, config, ... }:
 {
-    imports = [ 
+    imports = [
         ./hardware.nix
         # ./../../../modules/nixos/services/window-managers/river
         inputs.home-manager.nixosModules.home-manager
     ];
 
     # Window manager
-    services.windowManager.river.enable = true;
+    asgard.programs.windowManager.river.enable = true;
 
     # Home Manager
     home-manager.useGlobalPkgs = true;
@@ -110,7 +110,7 @@
         protonup
         vlc
         pavucontrol
-        
+
         inputs.zen-browser.packages."${system}".default
 
         # For gaming purposes
@@ -124,12 +124,8 @@
         mode = "0755";
     };
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.cosmeak = {
-        isNormalUser = true;
-        description = "cosmeak";
-        extraGroups = [ "networkmanager" "wheel" ];
-    };
+    # Add extra groups to users
+    users.users.cosmeak.extraGroups = [ "networkmanager" "wheel" ];
 
     # Enable or not CUPS to print documents.
     services.printing.enable = false;

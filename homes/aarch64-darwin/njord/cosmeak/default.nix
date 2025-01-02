@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 {
-    imports = [ 
+    imports = [
        ./../../../_shared/cosmeak
      ];
 
@@ -13,7 +13,7 @@
         php83
         php83Packages.composer
         nodejs_20
-        python310      
+        python310
 
         # CLI
         tree
@@ -28,7 +28,7 @@
 
         # Window Manager
         # Actually disabled because issue with french keyboard bindings
-        # aerospace 
+        # aerospace
     ];
 
     programs.kitty = {

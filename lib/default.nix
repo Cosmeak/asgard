@@ -1,20 +1,20 @@
 { self, inputs, ... }:
-let inherit (inputs.nixpkgs) lib; in 
+let inherit (inputs.nixpkgs) lib; in
 rec {
   ## FileSystem
   ## Help manage file and access to it
   fs = rec {
-    ## Match if type is a directory 
+    ## Match if type is a directory
     #@ String -> Boolean
     isDirectory = type: type == "directory";
 
-    ## Match if type is a file 
+    ## Match if type is a file
     #@ String -> Boolean
     isFile = type: type == "regular";
 
     ## Get directories at a given path
     #@ Path -> []Path
-    getDirectories = path: 
+    getDirectories = path:
       builtins.readDir path
       |> lib.filterAttrs (_: type: type |> isDirectory)
       |> lib.mapAttrsToList(name: _: "${path}/${name}");
@@ -28,17 +28,17 @@ rec {
 
     ## Get files in all folders at a giver path
     #@ Path -> []Path
-    getFilesRecursively = path: let 
+    getFilesRecursively = path: let
       entries = builtins.readDir path |> lib.filterAttrs (name: type: (type |> isDirectory) || (type |> isFile));
       mapFile = name: type: let
         path' = "${path}/${name}";
-      in 
+      in
         if type |> isDirectory
         then getFilesRecursively path'
         else path';
       files = lib.flatten (lib.mapAttrsToList mapFile entries);
     in files;
-      
+
     ## Get the default file in the directory if exists
     #@ Path -> Path|null
     getDefaultFile = path: let path = "${path}/default.nix"; in if builtins.pathExists path then path else null;
@@ -70,25 +70,25 @@ rec {
     #@ String -> Bool
     isDarwin = lib.hasInfix "darwin";
 
-    ## Get structured data about all hosts for a system 
+    ## Get structured data about all hosts for a system
     #@ String -> [Attrs]
-    getSystemHostsInformations = systemPath: let 
+    getSystemHostsInformations = systemPath: let
       hosts = fs.getDirectories systemPath;
       mkHostInformations = path: {
         system = builtins.baseNameOf systemPath;
         hostname = builtins.baseNameOf path;
         path = fs.getDefaultFile path;
       };
-      hostsInformations = builtins.map hosts;
+      hostsInformations = builtins.map mkHostInformations hosts;
     in hostsInformations;
 
     ## Get the name of the system output
     #@ String -> String
-    getHostSystemOutput = system: if system |> isDarwin then "darwinConfigurations" else "nixosConfigurations";
+    getOutput = system: if system |> isDarwin then "darwinConfigurations" else "nixosConfigurations";
 
     ## Get the system host builder
     #@ String -> Functions
-    getHostBuilder = system: let
+    getBuilder = system: let
       linuxBuilder = args: lib.nixosSystem (args // {
         modules = args.modules ++ module.getNixosModules;
       });
@@ -106,8 +106,8 @@ rec {
       system,
       hostname,
       path,
-      builder ? getHostBuilder system,
-      output ? getHostSystemOutput system
+      builder ? getBuilder system,
+      output ? getOutput system
     }: {
       ${output}.${hostname} = builder {
         system = system;
@@ -118,10 +118,54 @@ rec {
 
     ## Create all available hosts
     #@ Attrs -> Attrs
-    mkHosts = let 
+    mkHosts = let
       systems = fs.getDirectories ./../hosts;
-      hostsInformations = lib.concatMap getSystemHostsInformations systems;
-    in {
+      hostsInformations = lib.concatMap (systemPath: getSystemHostsInformations systemPath) systems;
+      generateHosts = infos: lib.foldl (acc: info: acc // host.mkHost info) {} infos;
+    in generateHosts hostsInformations;
+  };
+
+  ## Home
+  ## Help me manage creation of all users home by host
+  home = rec {
+    ## Create home modules for a user
+    #@ Attrs -> []Module
+    mkHome = {
+      system,
+      hostname,
+      username,
+      stateVersion ? "24.11"
+    }:
+    [
+      (if system |> host.isDarwin then inputs.home-manager.darwinModules.home-manager else inputs.home-manager.nixosModules.home-manager)
+      {
+        inputs.home-manager.useGlobalPkgs = true;
+        inputs.home-manager.useUserPackages = true;
+        inputs.home-manager.extraSpecialArgs = { inherit system hostname username; };
+        inputs.home-manager.${username} = {
+          imports = [ ./homes/${system}/${hostname}/${username}/default.nix ] ++ module.getHomeManagerModules;
+          programs.home-manager.enable = true; # Let home manager manage itself
+          home.username = username;
+          home.homeDirectory = if system |> host.isDarwin then "/Users/${username}" else "/home/${username}";
+          home.stateVersion = stateVersion;
+        };
+      }
+      (if system |> host.isLinux then {
+        # Define a user account. Don't forget to set a password with ‘passwd’.
+        users.users.${username} = {
+            isNormalUser = true;
+            description = username;
+            extraGroups = [ ];
+        };
+      } else {})
+    ];
+
+    ## Create all user home from a host
+    #@ Attrs -> []Modules
+    mkHomes = {
+      system,
+      host
+    }: {
 
     };
   };

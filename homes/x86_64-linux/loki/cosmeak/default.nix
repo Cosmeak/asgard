@@ -6,7 +6,7 @@
 
     home.packages = with pkgs; [
         btop
-	    discord
+        discord
         just
         lazygit
         lutris

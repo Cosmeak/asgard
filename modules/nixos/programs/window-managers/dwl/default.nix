@@ -1,14 +1,14 @@
 { config, lib, pkgs, ... }:
-let cfg = config.services.windowManager.dwl; in
+let cfg = config.asgard.programs.windowManager.dwl; in
 {
-  options.services.windowManager.dwl = {
+  options.asgard.programs.windowManager.dwl = {
     enable = lib.mkEnableOption "DWL Window Manager";
 
     xwayland.enable = lib.mkEnableOption "XWayland" // {
       default = true;
     };
 
-    # Move dwl overlay here to give access to override patches 
+    # Move dwl overlay here to give access to override patches
     # packages = lib.mkPackageOption pkgs "dwl" {
 
     # };

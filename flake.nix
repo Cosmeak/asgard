@@ -16,47 +16,15 @@
 
         home-manager.url = "github:nix-community/home-manager/release-24.11";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
-        
+
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
     };
-    
+
     outputs = { self, nixpkgs, darwin, ... }@inputs:
-    let inherit (self) outputs; lib = import ./lib { inherit self inputs; }; in   
-    {
-        overlays = import ./overlays { inherit inputs outputs; };
+    let inherit (self) outputs; lib = import ./lib { inherit self inputs; }; in
+    { overlays = import ./overlays { inherit inputs outputs; }; }
+    // (lib.host.mkHosts);
 
-        nixosConfigurations = {
-            # loki = nixpkgs.lib.nixosSystem {
-		    #     system = "x86_64-linux";
-            #     specialArgs = { inherit inputs self; }; 
-            #     modules = [ ./hosts/x86_64-linux/loki ];
-            # };
-
-            # TODO: rework configuration not being usable at the moment
-            # nyx = nixpkgs.lib.nixosSystem {
-            #     specialArgs = { inherit inputs; };
-            #     modules = [ ./hosts/x86_64-linux/nyx ];
-            # };
-
-            # vali = nixpkgs.lib.nixosSystem {
-            #     system = "x86_64-linux";
-            #     specialArgs = { inherit inputs; };
-            #      modules = [ ./hosts/x86_64-linux/vali ];
-            # };
-
-            # Raspberry Pi 3b+
-            # narfi = nixpkgs.lib.nixosSystem {
-            #     specialArgs = { inherit inputs; };
-            #     modules = [ ./hosts/aarch64-linux/nyx ];
-            # };
-        };
-
-        darwinConfigurations = {
-            njord = darwin.lib.darwinSystem {
-                system = "aarch64-darwin";
-                specialArgs = { inherit inputs; };
-                modules = [ ./hosts/aarch64-darwin/njord ];
-            };
-        };
-    } // (lib.host.mkHost { system = "x86_64-linux"; hostname = "loki"; path = ./hosts/x86_64-linux/loki/default.nix; });
+    # // (lib.host.mkHost { system = "x86_64-linux"; hostname = "loki"; path = ./hosts/x86_64-linux/loki/default.nix; })
+    # // (lib.host.mkHost { system = "aarch64-darwin"; hostname = "njord"; path = ./hosts/aarch64-darwin/njord/default.nix; });
 }

@@ -16,6 +16,7 @@
     "thunderbird" # install via nix if possiblex
     "obsidian"
     "brave-browser"
+    "1password"
 
     # Mics
     "amethyst" # Window manager

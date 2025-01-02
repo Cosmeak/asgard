@@ -5,9 +5,9 @@
     # Disable saving new documents to icloud
     NSDocumentSaveNewDocumentsToCloud = false;
     # Time before the key is repeated
-    InitialKeyRepeat = 7;
+    # InitialKeyRepeat = 7;
     # Time between repeat key
-    KeyRepeat = 6;
+    # KeyRepeat = 6;
     # Window open animation
     NSAutomaticWindowAnimationsEnabled = false;
     # Icon size in finder

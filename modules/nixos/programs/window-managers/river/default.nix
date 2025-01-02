@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
-let cfg = config.services.windowManager.river; in
+let cfg = config.asgard.programs.windowManager.river; in
 {
-  options.services.windowManager.river = {
+  options.asgard.programs.windowManager.river = {
     enable = lib.mkEnableOption "River - A Wayland Window Manager";
     extraPackages = lib.mkOption {
       type = with lib.types; listOf package;
@@ -34,4 +34,4 @@ let cfg = config.services.windowManager.river; in
       river
     '';
   });
-} 
+}
