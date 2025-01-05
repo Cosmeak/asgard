@@ -61,9 +61,10 @@ This repository want this to be multi-user and multi-host so there is some worka
 .
 ├── homes        # User home configuration
 │  ├── _shared   # Shared dotfiles between user configuration
-│  │  └── <system>
-│  │  │  └── <hostname>
-│  │  │  │  └── <username> # User host specific dotfiles
+│  │  └── <username>
+│  └── <system>
+│  │  └── <hostname>
+│  │  │  └── <username> # User host specific dotfiles
 ├── hosts        # Host-specific configuration
 │  └── <system>
 │  │  └── <hostname>
@@ -96,3 +97,10 @@ The dotfiles listed below, are the one that really help me to build this are tho
 - [elythh](https://github.com/elythh/flake)
 - [chenglab](https://github.com/eh8/chenglab)
 - [AlexNabokikh](https://github.com/AlexNabokikh/nix-config)
+
+## Troubleshooting
+
+- If the rebuild command failed because an experimental feature is disabled use this command
+```sh
+sudo -E NIX_CONFIG="experimental-features = nix-command flakes pipe-operators" nixos-rebuild switch --flake .
+``` 

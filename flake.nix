@@ -20,11 +20,16 @@
         zen-browser.url = "github:0xc000022070/zen-browser-flake";
     };
 
+    nixConfig = {
+        experimental-features = "nix-command flakes pipe-operators";
+        auto-optimise-store = true;
+    };
+
     outputs = { self, nixpkgs, darwin, ... }@inputs:
     let inherit (self) outputs; lib = import ./lib { inherit self inputs; }; in
     { overlays = import ./overlays { inherit inputs outputs; }; }
-    // (lib.host.mkHosts);
+    # // (lib.host.mkHosts);
 
-    # // (lib.host.mkHost { system = "x86_64-linux"; hostname = "loki"; path = ./hosts/x86_64-linux/loki/default.nix; })
-    # // (lib.host.mkHost { system = "aarch64-darwin"; hostname = "njord"; path = ./hosts/aarch64-darwin/njord/default.nix; });
+    // (lib.host.mkHost { system = "x86_64-linux"; hostname = "loki"; path = ./hosts/x86_64-linux/loki/default.nix; })
+    // (lib.host.mkHost { system = "aarch64-darwin"; hostname = "njord"; path = ./hosts/aarch64-darwin/njord/default.nix; });
 }

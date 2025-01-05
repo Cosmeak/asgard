@@ -2,7 +2,6 @@
 {
     imports = [
         ./hardware.nix
-        # ./../../../modules/nixos/services/window-managers/river
         inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -125,7 +124,11 @@
     };
 
     # Add extra groups to users
-    users.users.cosmeak.extraGroups = [ "networkmanager" "wheel" ];
+    users.users.cosmeak = {
+        isNormalUser = true;
+        description = "cosmeak";
+        extraGroups = [ "networkmanager" "wheel" ];
+    };
 
     # Enable or not CUPS to print documents.
     services.printing.enable = false;

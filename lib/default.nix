@@ -119,10 +119,26 @@ rec {
     ## Create all available hosts
     #@ Attrs -> Attrs
     mkHosts = let
-      systems = fs.getDirectories ./../hosts;
-      hostsInformations = lib.concatMap (systemPath: getSystemHostsInformations systemPath) systems;
-      generateHosts = infos: lib.foldl (acc: info: acc // host.mkHost info) {} infos;
-    in generateHosts hostsInformations;
+      architecturesPath = ./../hosts;
+      # Get the architecture directories
+      architectures = fs.getDirectories architecturesPath;
+
+      # Collect all hosts by iterating over architectures
+      allHosts = lib.map (architecture: let
+        # Get host directories for this architecture
+        hostDirectories = fs.getDirectories "${architecturesPath}/${architecture}";
+
+        # Generate the host information for each directory
+        hostInfos = lib.map (hostDir: getSystemHostsInformations hostDir) hostDirectories;
+
+        # Create a host configuration for each host information
+        hostConfigs = lib.map (hostInfo: mkHost {
+          system = hostInfo.system;  # The system (architecture) for the host
+          hostname = hostInfo.hostname;
+          path = hostInfo.path;
+        }) hostInfos;
+      in hostConfigs) architectures;
+    in lib.foldl' (attrs: newAttrs: attrs // newAttrs) {} allHosts;
   };
 
   ## Home
@@ -150,14 +166,14 @@ rec {
           home.stateVersion = stateVersion;
         };
       }
-      (if system |> host.isLinux then {
-        # Define a user account. Don't forget to set a password with ‘passwd’.
-        users.users.${username} = {
-            isNormalUser = true;
-            description = username;
-            extraGroups = [ ];
-        };
-      } else {})
+      # (if system |> host.isLinux then {
+      #   # Define a user account. Don't forget to set a password with ‘passwd’.
+      #   users.users.${username} = {
+      #       isNormalUser = true;
+      #       description = username;
+      #       extraGroups = [ ];
+      #   };
+      # } else {})
     ];
 
     ## Create all user home from a host
@@ -171,7 +187,8 @@ rec {
   };
 
   ## Flake output
-  ## Help manage flake output creation
+  ## Help manage flake output creation with making available the lib, 
+  ## modules, overlays and configurations.
   flake = rec {
     ## Build flake output
     mkFlake = {};
