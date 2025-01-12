@@ -18,6 +18,7 @@
         vscodium
         bottles
         _1password-gui
+        zed-editor
     ];
 
     # You do not need to change this if you're reading this in the future.
