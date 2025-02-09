@@ -16,6 +16,7 @@
     "thunderbird" # install via nix if possiblex
     "obsidian"
     "brave-browser"
+    "zen-browser"
     "1password"
 
     # Mics

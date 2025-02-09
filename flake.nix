@@ -3,7 +3,7 @@
         nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
         unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-        darwin.url = "github:LnL7/nix-darwin";
+        darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
         darwin.inputs.nixpkgs.follows= "nixpkgs";
 
         # wsl.url = "github:nix-community/NixOS-WSL";
@@ -22,7 +22,6 @@
 
     nixConfig = {
         experimental-features = "nix-command flakes pipe-operators";
-        auto-optimise-store = true;
     };
 
     outputs = { self, nixpkgs, darwin, ... }@inputs:
