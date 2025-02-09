@@ -19,6 +19,7 @@
         bottles
         _1password-gui
         zed-editor
+        insomnia
     ];
 
     # You do not need to change this if you're reading this in the future.
