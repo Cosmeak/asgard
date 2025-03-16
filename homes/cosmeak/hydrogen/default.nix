@@ -1,0 +1,4 @@
+{ inputs, pkgs, ...}:
+{
+  imports = [ ../common ];
+}

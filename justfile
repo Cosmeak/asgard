@@ -1,11 +1,15 @@
+hostname := "$HOSTNAME"
+
 default:
     @just --list
 
-nixos-switch:
-    sudo nixos-rebuild switch --flake .
-
-darwin-switch:
-    sudo darwin-rebuild switch --flake .
+rebuild hostname=hostname:
+    #!/usr/bin/env sh
+    if [[ "$OSTYPE" == "darwin"* ]]; then \
+        darwin-rebuild switch --flake .#{{ hostname }}; \
+    else \
+        sudo nixos-rebuild switch --flake .#{{ hostname }}; \
+    fi;
 
 clean:
     nix-store --optimize
