@@ -55,6 +55,13 @@
   environment.systemPackages = with pkgs; [
     firefox
     kitty
+    bat
+    eza
+    fzf
+    zoxide
+    tree
+    git
+    starship
   ];
 
   # Steam
