@@ -1,4 +1,4 @@
-{ self, inputs, hostname, ... }:
+{ self, inputs, pkgs, hostname, ... }:
 {
   imports = [
     ./hardware.nix

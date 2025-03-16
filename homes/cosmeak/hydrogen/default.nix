@@ -8,7 +8,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
 
     # User wide packages
-    packages = [
+    packages = with pkgs; [
       discord
       obs-studio
       prismlauncher
