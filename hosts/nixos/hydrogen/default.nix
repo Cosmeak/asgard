@@ -62,6 +62,9 @@
     tree
     git
     starship
+    pavucontrol
+    unzip
+    zip
   ];
 
   # Steam

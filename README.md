@@ -19,7 +19,7 @@ This repository want this to be multi-user and multi-host so there is some worka
 - [x] Nix Darwin
 - [ ] Nix BSD
 - [ ] WSL
-- [ ] MicroWM for servers
+- [ ] MicroVM for servers
 - [ ] Secrets management
 - [ ] Secure Boot
 - [ ] Persistant storage
@@ -61,7 +61,6 @@ This repository want this to be multi-user and multi-host so there is some worka
 ```
 .
 ├── homes # User home configuration
-│  ├── <username>
 │  │  ├── commons
 │  │  └── <hostname>
 ├── hosts # Host-specific configuration
