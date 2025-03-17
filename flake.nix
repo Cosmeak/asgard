@@ -19,6 +19,9 @@
       inputs.nixpkgs.follows= "nixpkgs";
     };
 
+    # WSL modules
+    wsl.url = "github:nix-community/NixOS-WSL/main";
+
     # Gaming like a steam machine
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
@@ -65,14 +68,17 @@
       };
 
       # Little server for testing things
-      # beryllium = nixpkgs.lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   specialArgs = {
-      #     inherit inputs;
-      #     hostname = "beryllium";
-      #   };
-      #   modules = [ ./hosts/nixos/beryllium ] ++ nixosModules;
-      # };
+      beryllium = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+          hostname = "beryllium";
+        };
+        modules = [ 
+          inputs.wsl.nixosModules.default 
+          ./hosts/nixos/beryllium 
+        ] ++ nixosModules;
+      };
 
       # Rapsberry Pi 3b+
       lithium = nixpkgs.lib.nixosSystem {

@@ -1,42 +1,25 @@
 { self, inputs, pkgs, hostname, ... }:
 {
-  # imports = [ ./hardware.nix ];
-
-  # EFI Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
-
-  # Locales
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "fr_FR.UTF-8";
-    LC_IDENTIFICATION = "fr_FR.UTF-8";
-    LC_MEASUREMENT = "fr_FR.UTF-8";
-    LC_MONETARY = "fr_FR.UTF-8";
-    LC_NAME = "fr_FR.UTF-8";
-    LC_NUMERIC = "fr_FR.UTF-8";
-    LC_PAPER = "fr_FR.UTF-8";
-    LC_TELEPHONE = "fr_FR.UTF-8";
-    LC_TIME = "fr_FR.UTF-8";
-  };
-
-  # Timezone
-  time.timeZone = "Europe/Paris";
-
-  # Keyboard
-  services.xserver.xkb.layout = "us";
+  # WSL configuration
+  wsl.enable = true;
+  wsl.docker-desktop.enable = true;
 
   # Networking
-  networking.networkmanager.enable = true;
   networking.hostName = hostname;
 
-  # Disable CUPS since this desktop will not print something.
-  services.printing.enable = false;
+  # Global packages
+  environment.systemPackages = with pkgs; [
+    git
+    wget
+  ];
 
-  # Common system configurations
-  gems.system.garbageCollector.enable= true;
-  gems.system.autoUpdate.enable = false;
+  # Required to use it as vscode remote
+  programs.nix-ld = {
+    enable = true;
+  };
+
+  # Enable flakes and other experimental features
+  nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
