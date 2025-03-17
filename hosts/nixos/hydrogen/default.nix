@@ -65,6 +65,7 @@
     pavucontrol
     unzip
     zip
+    btop
   ];
 
   # Steam
