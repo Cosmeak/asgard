@@ -18,6 +18,9 @@
     enable = true;
   };
 
+  # Emulate system for building others
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Enable flakes and other experimental features
   nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
 
