@@ -60,10 +60,10 @@ This repository want this to be multi-user and multi-host so there is some worka
 
 ```
 .
-├── homes # User home configuration
+├── users # User home configuration
 │  │  ├── commons
 │  │  └── <hostname>
-├── hosts # Host-specific configuration
+├── config # Host-specific configuration
 │  └── <os> # Darwin or NixOS
 │  │  └── <hostname>
 ├── lib # Custom functions needed to help configure

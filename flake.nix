@@ -62,7 +62,7 @@
           hostname = "hydrogen";
         };
         modules = [
-          ./hosts/nixos/hydrogen
+          ./config/nixos/hydrogen
           inputs.jovian.nixosModules.default
         ] ++ nixosModules;
       };
@@ -76,7 +76,7 @@
         };
         modules = [ 
           inputs.wsl.nixosModules.default 
-          ./hosts/nixos/beryllium 
+          ./config/nixos/beryllium 
         ] ++ nixosModules;
       };
 
@@ -88,7 +88,7 @@
           hostname = "lithium";
         };
         modules = [
-          ./hosts/nixos/lithium
+          ./config/nixos/lithium
           inputs.hardware.nixosModules.raspberry-pi-4
           "${nixpkgs}/nixos/modules/profiles/minimal.nix"
         ] ++ nixosModules;
@@ -104,7 +104,7 @@
           inherit inputs;
           hostname = "helium";
         };
-        modules = [ ./hosts/darwin/helium ] ++ darwinModules;
+        modules = [ ./config/darwin/helium ] ++ darwinModules;
       };
     };
 
