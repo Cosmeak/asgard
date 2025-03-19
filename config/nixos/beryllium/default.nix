@@ -25,6 +25,9 @@
 
   # Enable flakes and other experimental features
   nix.settings.experimental-features = [ "nix-command" "flakes" "pipe-operators" ];
+  
+  # Change buffer download size to 500Mo
+  nix.settings.download-buffer-size = 524288000;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
